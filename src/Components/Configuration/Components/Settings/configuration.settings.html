@@ -1,0 +1,63 @@
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-is-live model="vm.filters.isLive" change="vm.filters.distributeTemplate.filtrate()"></filter-is-live>
+    </div>
+
+    <div class="mdl-cell mdl-cell--2-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <strong class="text-upper text-primary">Distribute Template</strong>
+            <select class="mdl-textfield__input"
+                    ng-options="option.ID as option.Name for option in vm.filters.distributeTemplate.filteredOptions"
+                    ng-model="vm.filters.distributeTemplate.model"
+                    ng-change="vm.loadSports()">
+            </select>
+            <label class="mdl-textfield__label"></label>
+        </div>
+    </div>
+</div>
+
+<div class="mdl-grid">
+    <table style="width: 20%">
+        <thead>
+        <tr>
+            <th>Sport</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="sport in vm.tables.sports"
+            ng-class="{'calendar-hl-2': sport.IsOn, 'calendar-hl-4': !sport.IsOn}"
+            ng-click="vm.loadCategories(sport.ID)">
+            <td ng-bind="sport.Name"></td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width: 40%">
+        <thead>
+        <tr>
+            <th>Sport</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="sport in vm.tables.categories"
+            ng-class="{'calendar-hl-2': sport.IsOn, 'calendar-hl-4': !sport.IsOn}"
+            ng-click="vm.loadCategories()">
+            <td ng-bind="sport.Name"></td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width: 40%">
+        <thead>
+        <tr>
+            <th>Sport</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="sport in vm.tables.sports"
+            ng-class="{'calendar-hl-2': sport.IsOn, 'calendar-hl-4': !sport.IsOn}"
+            ng-click="vm.loadCategories()">
+            <td ng-bind="sport.Name"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

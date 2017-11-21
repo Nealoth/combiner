@@ -1,0 +1,43 @@
+<modal-wrapper>
+  <form ng-submit="vm.submit()">
+    <h5 class="text-center" ng-bind="vm.view.Name"></h5>
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--6-col">
+        <input-default label="Name" model="vm.view.Name" required></input-default>
+        <input-default label="View Type" model="vm.view.ViewType" type="number" min="0" max="10" required></input-default>
+        <input-default label="Init Count" model="vm.view.InitCount" type="number" min="-1" required></input-default>
+
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+          <input type="checkbox" class="mdl-switch__input" ng-model="vm.view.BaseTeam">
+          <span class="mdl-switch__label">Team Based</span>
+        </label>
+
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+          <input type="checkbox" class="mdl-switch__input" ng-model="vm.view.BasePlayer">
+          <span class="mdl-switch__label">Player Based</span>
+        </label>
+
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+          <input type="checkbox" class="mdl-switch__input" ng-model="vm.view.IsSpecialOdsValue">
+          <span class="mdl-switch__label">Special Odds Value</span>
+        </label>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col">
+        <input-default label="Win Count" model="vm.view.WinCount" type="number" min="-1" required></input-default>
+        <div class="mdl-grid" style="padding: 0; margin-top: -8px;">
+          <div class="mdl-cell mdl-cell--6-col">
+            <input-default label="Mult Min" model="vm.view.MultMin" type="number" step="0.01" required></input-default>
+            <input-default label="OddsKeys Min" model="vm.view.OddsKeysMin" type="number" step="0.01" required></input-default>
+          </div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <input-default label="Mult Max" model="vm.view.MultMax" type="number" step="0.01" required></input-default>
+            <input-default label="OddsKeys Max" model="vm.view.OddsKeysMax" type="number" step="0.01" required></input-default>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button-default type="submit" primary ng-bind="::vm.buttonText"></button-default>
+  </form>
+
+</modal-wrapper>

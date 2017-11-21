@@ -1,0 +1,56 @@
+<filters-wrapper refresh="vm.refresh()">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sports model="vm.filters.sport"></filter-system-sports>
+    </div>
+    <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col">-->
+        <!--<filter-system-categories model="vm.filters.category" with-all></filter-system-categories>-->
+    <!--</div>-->
+    <div class="mdl-cell mdl-cell--2-col">
+        <input-default model="vm.filters.search"
+                       label="Search"
+                       placeholder="Search in teams table..."
+                       debounce="1000"
+        ></input-default>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <button ng-click="vm.openEditModal()" type="button"
+                class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+            Create new team
+        </button>
+    </div>
+</filters-wrapper>
+
+<table-backend-paginated per-page="vm.itemsPerPage"
+                         current-page="vm.currentPage"
+                         total-count="vm.count"
+                         refresh-function="vm.refresh()">
+    <table class="material__table-small">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Changed</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>CountryCode</th>
+            <th>Ordering</th>
+            <th>ParentsInfo</th>
+            <th>TeamTypeInfo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="team in vm.table track by $index"
+            ng-click="vm.openEditModal(team)" class="hover">
+            <td ng-bind="team.ID"></td>
+            <td ng-bind="team.ChangedDate"></td>
+            <td ng-bind="team.Name"></td>
+            <td ng-bind="team.Description"></td>
+            <td ng-bind="team.CountryCode"></td>
+            <td ng-bind="team.Ordering"></td>
+            <td ng-bind="team.ParentsInfo"></td>
+            <td ng-bind="team.TeamTypeInfo"></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</table-backend-paginated>

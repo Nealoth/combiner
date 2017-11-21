@@ -1,0 +1,31 @@
+<filters-wrapper refresh="vm.refresh()">
+    <div class="mdl-cell mdl-cell--2-col" >
+        <button-default primary ng-click="vm.edit()">Create team type</button-default>
+    </div>
+</filters-wrapper>
+
+<table-extended list="vm.table"
+                livesearch="vm.filters.search"
+                accessor="__table_extended_list"
+                config="__table_extended_config">
+    <table class='material__table-small' at-table at-list="__table_extended_list" at-config="__table_extended_config">
+        <thead>
+        <tr>
+            <th class="hover" at-attribute="ID">ID</th>
+            <th class="hover" at-attribute="ChangedDate">Changed</th>
+            <th class="hover" at-attribute="Name">Name</th>
+            <th class="hover" at-attribute="Description">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="hover" ng-click="vm.edit(item)">
+            <td width="100" at-implicit at-sortable at-attribute="ID"></td>
+            <td at-sortable at-attribute="ChangedDate">
+                <span ng-bind="item.ChangedDate | date: 'yyyy.MM.dd | HH:mm'"></span>
+            </td>
+            <td at-implicit at-sortable at-attribute="Name"></td>
+            <td at-implicit at-sortable at-attribute="Description"></td>
+        </tr>
+        </tbody>
+    </table>
+</table-extended>

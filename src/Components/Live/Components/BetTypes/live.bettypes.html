@@ -1,0 +1,43 @@
+<filters-wrapper refresh="vm.refreshTable()">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sources model="vm.filters.source" live-type="live"></filter-system-sources>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sports model="vm.filters.sport" source="vm.filters.source"></filter-system-sports>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <input-default model="vm.filters.search" label="Search" placeholder="Search in bet types table..." debounce="500"></input-default>
+    </div>
+</filters-wrapper>
+
+<table-extended list="vm.betTypes"
+                livesearch="vm.filters.search"
+                accessor="__table_extended_list"
+                config="__table_extended_config">
+    <table class='material__table-small' at-table at-list="__table_extended_list" at-config="__table_extended_config">
+        <thead>
+        <tr>
+            <th class="hover" at-attribute="ChangedDate">Changed</th>
+            <th class="hover" at-attribute="PBetTypeId">Ex ID</th>
+            <th class="hover" at-attribute="BetTypeID">Sys ID</th>
+            <th class="hover" at-attribute="Name">Name</th>
+            <th class="hover" at-attribute="SystemBetTypeName">System Name</th>
+            <th class="hover" at-attribute="SpecialBetValue">Special Bet Value</th>
+            <th class="hover" at-attribute="RadarFreeText">Radar Text</th>
+            <th class="hover" at-attribute="RadarType">Radar Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="hover" ng-click="vm.openModal(item)">
+            <td width="150" at-implicit at-sortable at-attribute="ChangedDate" at-initial-sorting="desc"></td>
+            <td at-implicit at-sortable at-attribute="PBetTypeId"></td>
+            <td at-implicit at-sortable at-attribute="BetTypeID"></td>
+            <td at-implicit at-sortable at-attribute="Name"></td>
+            <td at-implicit at-sortable at-attribute="SystemBetTypeName"></td>
+            <td at-implicit at-sortable at-attribute="SpecialBetValue"></td>
+            <td at-implicit at-sortable at-attribute="RadarFreeText"></td>
+            <td at-implicit at-sortable at-attribute="RadarType"></td>
+        </tr>
+        </tbody>
+    </table>
+</table-extended>

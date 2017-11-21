@@ -1,0 +1,107 @@
+<modal-wrapper>
+  <form ng-submit="vm.submit()">
+    <h4 class="text-center text-upper">
+      Copy Template
+    </h4>
+    <filters-wrapper refresh="vm.getOddsKeys()">
+      <div class="mdl-cell mdl-cell--2-col" ng-if="vm.rights">
+        <filter-dist-template model="vm.distTemplate"></filter-dist-template>
+      </div>
+      <div class="mdl-cell mdl-cell--2-col">
+        <input-default label="Modify Mult On"
+                       model="vm.modify.mult"
+                       type="number"
+                       placeholder="Value can be '1', '-1' e.t.c." min="-0.40" step="0.01" max="0.40"></input-default>
+      </div>
+      <div class="mdl-cell mdl-cell--2-col">
+        <input-default label="Modify Odds Key On"
+                       model="vm.modify.oddsKey"
+                       type="number"
+                       placeholder="Value can be '1', '-1' e.t.c." min="-17" step="1" max="17"></input-default>
+      </div>
+      <div class="mdl-cell mdl-cell--2-col">
+        <input-default label="Modify Min Offer On"
+                       model="vm.modify.minOffer"
+                       type="number"
+                       placeholder="Value can be '1', '-1' e.t.c." min="-1" step="0.01" max="1"></input-default>
+      </div>
+      <div class="mdl-cell mdl-cell--2-col">
+        <input-default label="Modify Max Cap On"
+                       model="vm.modify.maxCap"
+                       type="number"
+                       placeholder="Value can be '1', '-1' e.t.c."></input-default>
+      </div>
+    </filters-wrapper>
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--3-col">
+        <sports-tree
+          callback="vm.getOddsKeys(treeData)"
+          live-type="vm.tree.isLive"
+          is-only-active="vm.tree.isActive">
+        </sports-tree>
+      </div>
+
+      <div class="mdl-cell mdl-cell--9-col">
+        <div class="max__height-500 overflow-auto">
+
+          <h5 class="text-muted text-upper text-center" ng-show="!vm.table">Click on tree to load table data...</h5>
+
+          <table class="material__table-small" ng-show="vm.table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Service</th>
+              <th>Mult</th>
+              <th>Margin</th>
+              <th>Min Offer</th>
+              <th>Max Cap</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="oddsKey in vm.table track by $index">
+              <td>
+                <input type="checkbox"
+                       ng-model="::oddsKey.IsOn"
+                       title="ON/OFF this BetType"
+                       readonly>
+                &nbsp;
+                <span ng-bind="::oddsKey.BetTypeName"></span>
+              </td>
+              <td>
+                <span ng-bind="::oddsKey.ServiceName"></span>
+                &nbsp;(<span ng-bind="::oddsKey.ServiceParentName"></span>)
+              </td>
+              <td>
+                <span ng-bind="::oddsKey.Mult"></span>
+                &nbsp;
+                <span ng-if="::oddsKey.IsMult">
+                  (<span ng-bind="::oddsKey.MultParent"></span>)
+              </span>
+              </td>
+              <td>
+                <span ng-bind="::oddsKey.OddsKey"></span>
+                &nbsp;
+                <span ng-if="::!oddsKey.IsMult">
+                  (<span ng-bind="::oddsKey.OddsKeyParent"></span>)
+              </span>
+              </td>
+              <td>
+                <span ng-bind="::oddsKey.MinimumOffer"></span>
+                &nbsp;(<span ng-bind="::oddsKey.MinimumOfferParent"></span>)
+              </td>
+              <td>
+                <span ng-bind="::oddsKey.MaximumCap"></span>
+                &nbsp;(<span ng-bind="::oddsKey.MaximumCapParent"></span>)
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <button-default primary type="submit">Copy template values</button-default>
+  </form>
+
+</modal-wrapper>

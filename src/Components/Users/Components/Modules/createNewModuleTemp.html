@@ -1,0 +1,23 @@
+<modal-wrapper>
+  <h5 class="text-center">
+    Are you sure want to create
+    <span ng-bind="vm.text"></span>?
+  </h5>
+
+  <form ng-submit="vm.createNewModule()">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" type="text" ng-model="vm.newModuleName">
+      <label class="mdl-textfield__label text-upper">Name of new module</label>
+    </div>
+
+    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+      Create new module
+    </button>
+
+    <button-default class="pull-right"
+                    text="'Delete module'"
+                    ng-if="vm.parentId"
+                    ng-click="vm.deleteModule()"></button-default>
+  </form>
+
+</modal-wrapper>

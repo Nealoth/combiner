@@ -1,0 +1,63 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row" style="padding-right: 0;">
+            <span class="mdl-layout-title text-first-letter" ng-if="$root.headerInfo" ng-bind="$root.headerInfo">
+            </span>
+            <span ng-show="!$root.headerInfo"
+                  id="main__current-page"
+                  class="mdl-layout-title text-first-letter main__current-page-faded">
+                <span ng-bind="$root.currentPage"></span>
+                <span ng-show="$root.currentSubPage" id="main__current-page-separator" class="ng-animate">
+                    &nbsp;
+                    |
+                    &nbsp;
+                </span>
+            </span>
+            <span id="main__current-subpage" class="mdl-layout-title text-first-letter main__current-subPage-faded"
+                  ng-bind="$root.currentSubPage"></span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <span id="profile__settings" class="mdl-navigation__link pointer nav__hover deny-select" style="cursor:pointer !important;">
+                    <span ng-bind="::vm.user.FirstName"></span>&nbsp;
+                    <span ng-bind="::vm.user.SecondName"></span>&nbsp;&nbsp;&nbsp;
+                    <i class="material-icons mdl-list__item-avatar" style="background-color: transparent !important;">&#xE853;</i>
+                </span>
+            </nav>
+        </div>
+        <div class="mdl-layout__tab-bar" ng-if="$root.subpages && $root.subpages.length"
+             style="height: 48px !important; overflow-x: hidden;">
+            <a class="mdl-layout__tab"
+               ng-repeat="subpage in $root.subpages | orderBy: 'navOrdering'"
+               ng-if="::subpage.navVisible"
+               ng-bind="::subpage.navName"
+               ui-sref-active="is-active"
+               ui-sref="{{ ::subpage.stateName }}()"></a>
+        </div>
+    </header>
+    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect" for="profile__settings">
+        <li class="mdl-menu__item">Profile</li>
+        <li class="mdl-menu__item">Statistic</li>
+        <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Messages</li>
+        <li ng-click="vm.logOut()" class="mdl-menu__item">Logout</li>
+    </ul>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Menu</span>
+        <nav class="mdl-navigation">
+            <a ng-repeat="page in ::$root.pages" class="mdl-navigation__link"
+               menu-close
+               ng-if="::page.navVisible"
+               ui-sref-active="active"
+               ui-sref="{{ ::page.stateName }}()">
+                <i class="material-icons" ng-bind="::page.navIcon"></i>
+                &nbsp;
+                &nbsp;
+                <span ng-bind="::page.navName"></span>
+            </a>
+        </nav>
+    </div>
+    <main class="mdl-layout__content" id="main__content">
+        <div class="page-content">
+            <div ui-view class="anim-in-out anim-slide-below-fade"></div>
+        </div>
+    </main>
+</div>

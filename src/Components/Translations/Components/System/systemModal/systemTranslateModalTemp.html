@@ -1,0 +1,65 @@
+<modal-wrapper>
+  <h5 class="text-center text-primary text-upper">
+    <span ng-bind="::vm.mode"></span> translate
+  </h5>
+
+  <h5 class="text-center">
+    Translate on <span ng-bind="::vm.currentLanguage.Name"></span> "<span ng-bind="::vm.currentLanguage.Code"></span>"
+  </h5>
+
+  <form ng-submit="vm.save()">
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--5-col text-right">
+        <span ng-bind="::vm.translation.OrigineName"></span>
+      </div>
+      <div class="mdl-cell mdl-cell--2-col text-center">
+        <i class="material-icons">&#xE5C8;</i>
+      </div>
+      <div class="mdl-cell mdl-cell--5-col">
+        <input-default class="pull-left" style="padding-top: 0;" model="vm.currentTranslation"></input-default>
+      </div>
+    </div>
+    <div class="mdl-grid" ng-if="vm.mode === 'system' &&
+                                 vm.translation.DistributeTemplateTranslate &&
+                                 vm.translation.DistributeTemplateTranslate !== vm.translation.Translate">
+      <div class="mdl-layout-spacer"></div>
+      <div class="text-center">
+        <span><i class="material-icons" style="padding:0;">&#xE645;</i> Availible client translation:</span>
+        <strong class="text-primary" ng-bind="::vm.translation.DistributeTemplateTranslate"></strong>
+        <button id="translations__system-button-push" type="button"
+                class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="vm.acceptTranslation()">
+          <i class="material-icons">&#xE890;</i>
+        </button>
+        <div class="mdl-tooltip mdl-tooltip--large" for="translations__system-button-push">
+          Push into system translation
+        </div>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+    <br>
+
+    <div ng-if="vm.teamTranslation" class="flex-x-center">
+      <ul class="demo-list-item mdl-list">
+        <li class="mdl-list__item">
+          <strong>Leagues</strong>
+        </li>
+        <li class="mdl-list__item" ng-repeat="league in vm.teamLeagues track by $index">
+          <span class="mdl-list__item-primary-content">
+            <span ng-bind="$index + 1"></span>. <span ng-bind="league.Name"></span> / <span ng-bind="league.Code"></span> / <span ng-bind="league.CountryCode"></span> / <span ng-bind="league.StageType"></span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+      Save
+    </button>
+
+    <!--<button ng-click="vm.checkAll()" type="button" disabled-->
+            <!--class="pull-right mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-js-ripple-effect">-->
+      <!--Check other translations-->
+    <!--</button>-->
+  </form>
+
+</modal-wrapper>

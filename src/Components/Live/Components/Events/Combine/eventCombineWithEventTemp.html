@@ -1,0 +1,36 @@
+<modal-wrapper>
+  <h5 class="text-center">
+    Associate with system event
+  </h5>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <strong class="text-upper text-primary">Home Team Name</strong>
+    <input class="mdl-textfield__input" type="text" ng-model="vm.searchBySystemEvent.TeamHomeName">
+    <label class="mdl-textfield__label"></label>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <strong class="text-upper text-primary">Guest Team Name</strong>
+    <input class="mdl-textfield__input" type="text" ng-model="vm.searchBySystemEvent.TeamGuestName">
+    <label class="mdl-textfield__label"></label>
+  </div>
+  <div class="overflow-auto max__height-500">
+    <table class="material__table-small">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>League</th>
+        <th>Event</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="systemEvent in vm.events | filter: vm.searchBySystemEvent track by $index"
+          ng-click="confirm(systemEvent)"
+          class="hover">
+        <td ng-bind="::systemEvent.ID"></td>
+        <td ng-bind="::systemEvent.LeagueName"></td>
+        <td ng-bind="::systemEvent.EventName"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</modal-wrapper>

@@ -1,0 +1,108 @@
+<filters-wrapper refresh="vm.refresh()">
+  <div class="mdl-cell mdl-cell--2-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-primary text-upper">Type</strong>
+      <select class="mdl-textfield__input"
+              ng-options="option.name for option in vm.filters.type.options"
+              ng-model="vm.filters.type.model">
+        <option value="" selected>All</option>
+      </select>
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-primary text-upper">Users</strong>
+      <select class="mdl-textfield__input"
+              ng-options="option.FirstName + ' ' + option.SecondName for option in vm.filters.users.options"
+              ng-model="vm.filters.users.model">
+        <option value="" selected>All</option>
+      </select>
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--1-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">Begin</strong>
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.date.begin"
+             max-view="year"
+             min-view="date"
+             view="date"
+             format="dd-MM-yyyy">
+      <label class="mdl-textfield__label"></label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.time.begin"
+             max-view="hours"
+             format="HH:mm">
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--1-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">End</strong>
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.date.end"
+             max-view="year"
+             min-view="date"
+             view="date"
+             format="dd-MM-yyyy">
+      <label class="mdl-textfield__label"></label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.time.end"
+             max-view="hours"
+             format="HH:mm">
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-default label="Search" model="vm.filters.search" placeholder="Search after refresh..."></input-default>
+  </div>
+
+</filters-wrapper>
+
+<table-backend-paginated per-page="vm.itemsPerPage"
+                         current-page="vm.currentPage"
+                         total-count="vm.count"
+                         refresh-function="vm.refresh()">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>Time</th>
+      <th>Login</th>
+      <th>Name</th>
+      <th ng-if="::!vm.filters.type.model">Type</th>
+      <th>Link</th>
+      <th>Query</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="log in vm.table track by $index"
+        class="hover"
+        ng-click="vm.viewLog(log)">
+      <td width="80" ng-bind="log.InsertDate | date: 'HH:mm'"></td>
+      <td width="150" ng-bind="log.Login"></td>
+      <td width="200" ng-bind="log.FIO"></td>
+      <td width="50" ng-if="::!vm.filters.type.model" ng-bind="log.QueryType"></td>
+      <td width="400" ng-bind="log.Link"></td>
+      <td ng-bind="log.QueryText"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-backend-paginated>

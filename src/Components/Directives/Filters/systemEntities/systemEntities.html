@@ -1,0 +1,8 @@
+<div class="mdl-textfield mdl-js-textfield">
+  <strong class="text-upper text-primary">Entities</strong>
+  <select class="mdl-textfield__input"
+          ng-options="option.EntityName for option in options"
+          ng-model="model"
+          ng-disabled="!options.length"></select>
+  <label class="mdl-textfield__label"></label>
+</div>

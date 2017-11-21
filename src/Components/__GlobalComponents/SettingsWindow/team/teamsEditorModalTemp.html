@@ -1,0 +1,180 @@
+<modal-wrapper>
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#system__teams__edit-general" class="mdl-tabs__tab is-active">General</a>
+            <a href="#system__teams__edit-parents" class="mdl-tabs__tab"
+               ng-if="vm.isManage" ng-click="vm.initChildsModule()">Child Teams</a>
+            <a href="#system__teams__edit-teamTypes" class="mdl-tabs__tab"
+               ng-if="vm.isManage" ng-click="vm.initTeamTypesModule()">Team Types</a>
+            <a href="#system__teams__edit-teamLeagues" class="mdl-tabs__tab"
+               ng-if="vm.isManage" ng-click="vm.initTeamLeaguesModule()">Team Leagues</a>
+        </div>
+
+        <div class="mdl-tabs__panel is-active" id="system__teams__edit-general">
+            <form ng-submit="vm.submit()">
+                <div class="flex-x-center flex-y-center" style="width: 100%; flex-direction: column;">
+                    <input-default model="vm.name" label="Name" required></input-default>
+                    <input-default model="vm.description" label="Description"></input-default>
+                    <input-default model="vm.ordering" label="Ordering" required></input-default>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <strong class="text-upper text-primary">Sport</strong>
+                        <select class="mdl-textfield__input"
+                                ng-options="option.ID as option.Name for option in vm.filters.sport.options"
+                                ng-model="vm.filters.sport.model"
+                                ng-change="vm.filtrateCategories()">
+                        </select>
+                        <label class="mdl-textfield__label"></label>
+                    </div>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <strong class="text-upper text-primary">Category</strong>
+                        <select class="mdl-textfield__input"
+                                ng-options="option.Code as option.Name for option in vm.filters.category.options"
+                                ng-model="vm.filters.category.model" required>
+                        </select>
+                        <label class="mdl-textfield__label"></label>
+                    </div>
+
+                    <!--<filter-system-categories model="vm.country"-->
+                                              <!--selected-category-code="vm.currentCountryCode"></filter-system-categories>-->
+                    <br><br>
+                </div>
+                <button type="submit"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                        ng-bind="::vm.buttonText">
+                </button>
+                <button type="button"
+                        class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                        ng-if="vm.isManage"
+                        ng-click="vm.deleteTeam()">
+                    Remove team
+                </button>
+            </form>
+        </div>
+
+        <div class="mdl-tabs__panel" id="system__teams__edit-parents">
+            <br>
+            <table class="material__table-small">
+                <thead>
+                <tr>
+                    <th>
+                        <button ng-click="vm.addChildTeam()"
+                                class="pull-left mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                            <i class="material-icons">add</i>
+                        </button>
+
+                        <button ng-click="vm.loadChilds()"
+                                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent">
+                            <i class="material-icons">refresh</i>
+                        </button>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="childTeam in vm.childTeams track by $index" class="hover">
+                    <td>
+                        [<span ng-bind="childTeam.TeamID"></span>] &nbsp;
+                        <span ng-bind="childTeam.TeamName"></span>
+                        <button ng-click="vm.deleteChild(childTeam)"
+                                class="pull-right mdl-button mdl-js-button mdl-button--icon">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mdl-tabs__panel" id="system__teams__edit-teamTypes">
+            <filter-team-type model="vm.teamTypeToAdd"></filter-team-type>
+            <button type="button" class="mdl-button mdl-js-button mdl-button--icon"
+                    title="Add team type to current team"
+                    title-direction="right"
+                    ng-click="vm.modifyTeamTypes()">
+                <i class="material-icons">&#xE03B;</i>
+            </button>
+
+            <table class="material__table-small">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Team Type</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="teamType in vm.teamTypes track by $index">
+                    <td ng-bind="teamType.ID"></td>
+                    <td>
+                        <span ng-bind="teamType.TeamName"></span>
+                        [<span ng-bind="teamType.TeamID"></span>]
+                    </td>
+                    <td>
+                        <span ng-bind="teamType.TeamTypeName"></span>
+                        [<span ng-bind="teamType.TeamTypeID"></span>]
+                    </td>
+                    <td>
+                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon"
+                                title="Delete team type"
+                                title-direction="right"
+                                ng-click="vm.modifyTeamTypes(teamType.ID)">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mdl-tabs__panel" id="system__teams__edit-teamLeagues">
+
+            <filter-search-league style="margin-left: 1%"
+                                  model="vm.currentLeague"
+                                  sport-id="{{vm.currentSport}}"></filter-search-league>
+
+            <div class="max__height-500 overflow-auto">
+                <table class="material__table-small">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>
+                            <button title="Add league to current team"
+                                    class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right"
+                                    ng-click="vm.addLeague()">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </th>
+                        <th width="60">
+                            <button ng-click="vm.initTeamLeaguesModule(true)" title="Refresh table"
+                                    class="mdl-button mdl-js-button mdl-button--fab  mdl-button--colored mdl-button--mini-fab pull-right">
+                                <i class="material-icons">refresh</i>
+                            </button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="league in vm.teamLeagues track by $index">
+                        <td>
+                            [<span class="link"
+                                   ng-bind="league.LeagueID"
+                                   title="League settings" title-direction="left"></span>]
+                            <span ng-bind="league.LeagueName"></span>
+                        </td>
+                        <td ng-bind="league.CountryCode"></td>
+                        <td colspan="2">
+                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                    title="Delete league from team"
+                                    title-direction="right" ng-click="vm.deleteLeague(league.ID)">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</modal-wrapper>

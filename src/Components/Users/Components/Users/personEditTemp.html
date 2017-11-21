@@ -1,0 +1,176 @@
+<modal-wrapper>
+  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    <div class="mdl-tabs__tab-bar">
+      <a href="#users__users_general-edit" class="mdl-tabs__tab is-active">General</a>
+      <a href="#users__users_clients-edit" class="mdl-tabs__tab" ng-click="vm.loadClients()" ng-if="vm.person">Clients</a>
+      <a href="#users__users_languages-edit" class="mdl-tabs__tab" ng-click="vm.loadAvailableLanguages()"
+         ng-if="vm.person">Available Languages</a>
+    </div>
+    <div class="mdl-tabs__panel is-active" id="users__users_general-edit">
+      <form ng-submit="vm.submit()">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col">
+            <input-default model="vm.person.FirstName" label="First Name" required></input-default>
+            <input-default model="vm.person.MiddleName" label="Middle Name"></input-default>
+            <input-default model="vm.person.SecondName" label="Second Name" required></input-default>
+            <input-default model="vm.person.Email" label="Email"></input-default>
+            <input-default model="vm.person.UTCDiff" label="UTC Diff" type="number" required></input-default>
+            <input-default model="vm.person.Login" label="Login" required></input-default>
+            <div ng-if="!vm.isManage">
+              <input-default model="vm.person.Password" label="Password" required></input-default>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <strong class="text-primary text-upper">Sex</strong>
+              <select class="mdl-textfield__input"
+                      ng-options="option for option in vm.sex.options"
+                      ng-model="vm.sex.model">
+              </select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+
+          </div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <strong class="text-upper text-primary">Birth Date</strong>
+              <input class="mdl-textfield__input"
+                     date-time
+                     ng-model="vm.person.DateOfBirth"
+                     max-view="year"
+                     min-view="date"
+                     view="date"
+                     format="dd-MM-yyyy"
+                     min-date="vm.filters.dates.begin.date">
+              <label class="mdl-textfield__label"></label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <strong class="text-primary text-upper">User Type</strong>
+              <select class="mdl-textfield__input"
+                      ng-options="option.name for option in vm.userType.options"
+                      ng-model="vm.userType.model"></select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <button type="button" ng-click="vm.loadDistTemplates('update')"
+                      class="text-muted mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">loop</i>
+              </button>
+              <span>
+          <strong class="text-primary text-upper">Distribute Template </strong>
+                <!--<span class="pointer pull-right text-primary">Create new</span>-->
+        </span>
+              <select
+                style="padding-left: 35px"
+                class="mdl-textfield__input"
+                ng-options="option.Name for option in vm.distTemplate.options"
+                ng-model="vm.distTemplate.model">
+                <option value="">Not chosen</option>
+              </select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <button type="button" ng-click="vm.loadSystemRights('update')"
+                      class="text-muted mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">loop</i>
+              </button>
+              <span>
+          <strong class="text-primary text-upper">User Template </strong>
+        </span>
+              <select
+                style="padding-left: 35px"
+                class="mdl-textfield__input"
+                ng-options="option.Name + ' (' + option.modules.length + ') ' for option in vm.userTemplate.options"
+                ng-model="vm.userTemplate.model">
+                <option value="">Not chosen</option>
+              </select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+
+          </div>
+        </div>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                ng-bind="vm.buttonText">
+        </button>
+      </form>
+    </div>
+    <div class="mdl-tabs__panel" id="users__users_clients-edit">
+      <br>
+
+      <div class="mdl-textfield mdl-js-textfield">
+        <strong class="text-primary text-upper">System clients</strong>
+        <select class="mdl-textfield__input" ng-model="vm.selectedClient"
+                ng-options="client.Name for client in vm.totalClients">
+        </select>
+        <label class="mdl-textfield__label"></label>
+      </div>
+
+      <button class="mdl-button mdl-button--icon" ng-click="vm.addClient()">
+        <i class="material-icons">playlist_add</i>
+      </button>
+
+      <table class="material__table-small">
+        <thead>
+        <tr>
+          <th>
+            Client Name
+          </th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="client in vm.clients track by $index">
+          <td ng-bind="client.ClientName"></td>
+          <td>
+            <button class="pull-right mdl-button mdl-button--icon" ng-click="vm.deleteClient(client.ID)">
+              <i class="material-icons">delete</i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mdl-tabs__panel" id="users__users_languages-edit">
+      <br>
+
+      <div class="mdl-textfield mdl-js-textfield">
+        <strong class="text-primary text-upper">System languages</strong>
+        <select class="mdl-textfield__input" ng-model="vm.selectedLanguage"
+                ng-options="option.Name + ' (' + option.Code + ')' for option in vm.totalLanguages">
+        </select>
+        <label class="mdl-textfield__label"></label>
+      </div>
+
+      <button class="mdl-button mdl-button--icon" ng-click="vm.addLanguage()">
+        <i class="material-icons">playlist_add</i>
+      </button>
+
+      <div class="max__height-400 overflow-auto">
+        <table class="material__table-small">
+          <thead>
+          <tr>
+            <th>
+              Language
+            </th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="language in vm.languages track by $index">
+            <td ng-bind="language.LanguageName"></td>
+            <td>
+              <button class="pull-right mdl-button mdl-button--icon" ng-click="vm.deleteLanguage(language.ID)">
+                <i class="material-icons">delete</i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</modal-wrapper>

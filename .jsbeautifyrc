@@ -1,0 +1,10 @@
+{
+    "indent_size": 4,
+    "indent_char": " ",
+    "css": {
+      "indent_size": 2,
+      "newline_between_rules":true
+    },
+    "comma_first": false,
+    "jslint_happy": true
+  }

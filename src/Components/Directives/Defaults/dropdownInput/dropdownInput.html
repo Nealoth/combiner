@@ -1,0 +1,26 @@
+<div class="input__dropdown">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <strong class="text-upper" ng-bind="label" ng-class="{'text-muted': disabled, 'text-primary': !disabled}"></strong>
+    <input class="mdl-textfield__input"
+           type="text"
+           placeholder="{{placeholder}}"
+           ng-change="onChangeCallback()"
+           ng-model="search"
+           ng-model-options="{'debounce': debounce}"
+           ng-disabled="disabled">
+    <ul class="input__dropdown-list material-shadow max__height-400 overflow-auto">
+      <li class="deny-select text-center" ng-if="filtered.length > 0">
+        <strong>
+          <span ng-bind="filtered.length"></span> RESULT<span ng-if="filtered.length > 1">S</span> FOUND
+        </strong>
+      </li>
+      <li onmousedown="event.preventDefault()"
+          ng-repeat="option in options | filter: search as filtered"
+          ng-click="click($event, option)">
+        <!--{{checkRepeat()}}-->
+        <span ng-bind="{{optionTemplate}}"></span>
+      </li>
+    </ul>
+    <label class="mdl-textfield__label"></label>
+  </div>
+</div>

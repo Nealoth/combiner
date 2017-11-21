@@ -1,0 +1,42 @@
+<div class="monitoring__event-title">
+    <div class="monitoring__event-title-button hover"
+    ng-click="vm.onlyActive = !vm.onlyActive"
+    ng-class="{'active': vm.onlyActive}">
+        <strong>Show only active bet types</strong>
+    </div>
+    <div class="monitoring__event-title-button hover" ng-click="vm.expandAll()">
+        <strong>
+            Collapse all/Expand all
+        </strong>
+    </div>
+</div>
+
+<div class="monitoring__odds">
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone"
+             ng-repeat="betType in vm.betTypes track by $index"
+             ng-if="vm.showOnlyActive(betType.currentActiveOdds)">
+            <div class="monitoring__odds-item">
+                <div class="monitoring__odds-item-heading">
+                    <span class="pull-left" ng-bind="::betType.Name"></span>
+                </div>
+                <div class="monitoring__odds-item-content">
+                    <table cellspacing="1px" cellpadding="0">
+                        <tbody>
+                        <tr ng-repeat="oddsRow in betType.betTypeOdds track by $index">
+                            <td ng-repeat="odd in oddsRow.bto track by $index">
+                                <div class="monitoring__odds-item-content-block">
+                                    <div system-odd="odd"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

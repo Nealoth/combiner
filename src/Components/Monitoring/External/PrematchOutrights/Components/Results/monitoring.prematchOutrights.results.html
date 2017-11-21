@@ -1,0 +1,23 @@
+<filters-wrapper refresh="vm.refresh()"></filters-wrapper>
+
+<table class="material__table-small">
+  <thead>
+  <tr>
+    <th>Ex Team ID</th>
+    <th>Team</th>
+    <th>Result</th>
+    <th>Changed</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="result in vm.table track by $index" class="hover">
+    <td ng-bind="result.ExTeamID"></td>
+    <td>
+      [<span ng-bind="result.TeamID"></span>]
+      <span ng-bind="result.TeamName"></span>
+    </td>
+    <td ng-bind="result.Result"></td>
+    <td ng-bind="result.ChangedDate"></td>
+  </tr>
+  </tbody>
+</table>

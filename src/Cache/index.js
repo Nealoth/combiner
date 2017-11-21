@@ -1,0 +1,2 @@
+require('./StaticCache');
+require('./dynamicCache');

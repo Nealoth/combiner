@@ -1,0 +1,53 @@
+<filters-wrapper refresh="vm.refresh()">
+  <div class="mdl-cell mdl-cell--2-col" ng-if="vm.distTemplateRights">
+    <filter-dist-template  model="vm.filters.distTemplate"></filter-dist-template>
+  </div>
+  <div class="mdl-cell mdl-cell--2-col">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="vm.resendOdds()">
+      Resend Odds
+    </button>
+  </div>
+  <div class="mdl-cell mdl-cell--2-col">
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+      <input type="checkbox" class="mdl-switch__input" ng-model="vm.onlyActive" checked>
+      <span class="mdl-switch__label">Show only active</span>
+    </label>
+  </div>
+</filters-wrapper>
+
+<div class="monitoring__odds">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone"
+         ng-repeat="betType in vm.betTypes track by $index"
+         ng-if="vm.showOnlyActive(betType.currentActiveOdds)">
+      <div class="monitoring__odds-item">
+        <div class="monitoring__odds-item-heading">
+          <span ng-bind="::betType.ServiceName" title="Source Name"></span>&nbsp;/&nbsp;
+          <span ng-bind="::betType.Mult" title="Multiplier" ng-class="::{'text-muted': !betType.IsMult, 'text-underline':  betType.IsMult}"></span>&nbsp;/&nbsp;
+          <span ng-bind="::betType.OddsKey" title="OddsKey" ng-class="::{'text-muted': betType.IsMult, 'text-underline':  !betType.IsMult }"></span>&nbsp;/&nbsp;
+          <span ng-bind="::betType.MinimumOffer" title="Minimum Offer"></span>&nbsp;/&nbsp;
+          <span ng-bind="::betType.MaximumCap" title="Maximum Cap"></span>
+        </div>
+        <div class="monitoring__odds-item-heading">
+          <span class="pull-left" ng-bind="::betType.Name"></span>
+        </div>
+        <div class="monitoring__odds-item-content">
+          <table cellspacing="1px" cellpadding="0">
+            <tbody>
+            <tr ng-repeat="oddsRow in betType.betTypeOdds track by $index">
+              <td ng-repeat="odd in oddsRow.bto track by $index">
+                <div class="monitoring__odds-item-content-block">
+                  <div system-odd="odd"></div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

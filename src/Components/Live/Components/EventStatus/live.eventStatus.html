@@ -1,0 +1,29 @@
+<filters-wrapper refresh="vm.refresh()">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sources model="vm.filters.source"></filter-system-sources>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sports model="vm.filters.sport" source="vm.filters.source"></filter-system-sports>
+    </div>
+</filters-wrapper>
+
+<table class="material__table-small" ng-if="vm.table">
+    <thead>
+    <tr>
+        <th>Changed</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>System Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="status in vm.table track by $index"
+        class="hover"
+        ng-click="vm.associate(status)">
+        <td ng-bind="status.ChangedDate"></td>
+        <td ng-bind="status.ID"></td>
+        <td ng-bind="status.Name"></td>
+        <td ng-bind="status.SystemName"></td>
+    </tr>
+    </tbody>
+</table>

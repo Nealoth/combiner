@@ -1,0 +1,39 @@
+<div>
+    <h5 class="text-center text-muted" ng-show="!accessor.length && listInitialized">
+        NOT FOUND BY QUERY: <span ng-bind="livesearch"></span>
+    </h5>
+    <h5 ng-if="!listInitialized" class="text-center text-muted text-upper deny-select">
+        Click refresh button to load data &nbsp;
+        <button id="filters__wrapper__refresh-button"
+                type="button"
+                class="mdl-button
+                    mdl-button--fab mdl-button--mini-fab
+                    mdl-button--raised
+                    mdl-button--colored
+                    " disabled>
+            <i class="material-icons">refresh</i>
+        </button>
+    </h5>
+    <div ng-show="listInitialized && accessor.length">
+        <div ng-if="pagination" class="mdl-grid" style="justify-content: flex-start; padding: 0;">
+            <div class="mdl-layout-spacer"></div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 150px; padding-top: 0;">
+                <span class="text-upper text-primary">Items per page</span>
+                <select class="mdl-textfield__input"
+                        ng-options="option.value as option.name for option in configOptions"
+                        ng-model="config.itemsPerPage">
+                </select>
+                <label class="mdl-textfield__label"></label>
+            </div>
+            <div class="mdl-layout-spacer"></div>
+        </div>
+
+        <div>
+            <ng-transclude></ng-transclude>
+        </div>
+
+        <div ng-if="pagination">
+            <at-pagination at-list="accessor" at-config="config"></at-pagination>
+        </div>
+    </div>
+</div>

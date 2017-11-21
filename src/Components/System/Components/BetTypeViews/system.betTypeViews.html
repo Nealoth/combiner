@@ -1,0 +1,33 @@
+<br>
+<table class="material__table-small">
+  <thead>
+  <tr>
+    <th>Changed</th>
+    <th>Name</th>
+    <th>
+      <button
+        type="button"
+        ng-click="vm.refresh()"
+        class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+        <i class="material-icons">refresh</i>
+      </button>
+      <button
+        style="margin: 0 10px 0 10px;"
+        type="button"
+        ng-click="vm.edit(null)"
+        class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--raised mdl-js-ripple-effect">
+        <i class="material-icons">add</i>
+      </button>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="view in vm.table track by $index"
+      class="hover"
+      ng-click="vm.edit(view)">
+    <td ng-bind="view.ChangedDate | date: 'dd.MM.yyyy HH:mm'"></td>
+    <td ng-bind="view.Name"></td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>

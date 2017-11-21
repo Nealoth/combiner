@@ -1,0 +1,36 @@
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--3-col">
+        <filter-system-sources model="vm.dropdowns.source" with-all null-field="Don't pick" label="Take live from"></filter-system-sources>
+        <filter-system-sources model="vm.dropdowns.isLive" with-all null-field="Don't pick" label="Initial probability data"></filter-system-sources>
+    </div>
+    <div class="mdl-cell mdl-cell--5-col">
+        <h5 class="text-primary">Sports</h5>
+        <!--<div style="padding: 15px 15px" class="max__height-500 overflow-auto">-->
+            <v-accordion class="vAccordion--default">
+                <v-pane ng-repeat="sport in vm.sports track by $index">
+                    <v-pane-header ng-bind="sport.Name" ng-click="vm.loadScores(sport)"></v-pane-header>
+                    <v-pane-content>
+                        <ul>
+                            <table class="material__table-small">
+                                <tbody>
+                                    <tr ng-repeat="score in sport.scores track by $index">
+                                        <td ng-bind="score.Name"></td>
+                                        <td>
+                                            <input type="text" value="123123">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!--<li ">-->
+                                <!---->
+                            <!--</li>-->
+                        </ul>
+                    </v-pane-content>
+                </v-pane>
+            </v-accordion>
+        <!--</div>-->
+    </div>
+</div>
+
+

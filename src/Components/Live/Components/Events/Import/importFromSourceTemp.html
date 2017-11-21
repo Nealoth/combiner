@@ -1,0 +1,12 @@
+<modal-wrapper>
+  <ul class='mdl-list'>
+    <li class="mdl-list__item"
+        ng-repeat="source in ::vm.sources track by $index">
+      <button ng-click="confirm(source)"
+              type="button"
+              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+        Import from <span ng-bind="::source.name"></span>
+      </button>
+    </li>
+  </ul>
+</modal-wrapper>

@@ -1,0 +1,26 @@
+<modal-wrapper>
+  <form ng-submit="vm.submit()">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">Distribute Template</strong>
+      <select class="mdl-textfield__input"
+              ng-options="option.ID as ::option.Name for option in ::vm.distTemplate.options"
+              ng-model="vm.distTemplate.model">
+      </select>
+      <label class="mdl-textfield__label"></label>
+    </div>
+    <input-default model="vm.link" label="Link" required></input-default>
+    <!--<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">-->
+    <!--<input type="checkbox" class="mdl-checkbox__input" ng-model="vm.template.IsOn">-->
+    <!--<span class="mdl-checkbox__label">Enabled</span>-->
+    <!--</label>-->
+
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+      <input type="checkbox" class="mdl-switch__input" ng-model="vm.template.IsOn">
+      <span class="mdl-switch__label">Enabled</span>
+    </label>
+    <br>
+    <br>
+    <button-default text="vm.buttonText" type="submit" primary></button-default>
+  </form>
+
+</modal-wrapper>

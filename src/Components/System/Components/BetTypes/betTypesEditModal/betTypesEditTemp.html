@@ -1,0 +1,200 @@
+<modal-wrapper timeout="1000">
+    <h5 class="text-center" ng-bind="::vm.title"></h5>
+    <form ng-submit="vm.updateBetType()">
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar">
+                <a href="#system__bettypesModal__general" class="mdl-tabs__tab is-active">General</a>
+                <a ng-show="vm.isManage" href="#system__bettypesModal__odds" class="mdl-tabs__tab">Odds</a>
+                <a ng-show="vm.isManage" href="#system__bettypesModal__sportMembers" class="mdl-tabs__tab">Sport
+                    Members</a>
+            </div>
+
+            <!--GENERAL TAB-->
+
+            <div class="mdl-tabs__panel is-active" id="system__bettypesModal__general">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <ul class='mdl-list'>
+                            <li class="mdl-list__item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <strong class="text-upper text-primary">BET TYPE NAME</strong>
+                                    <input ng-model="vm.betTypeData.name" class="mdl-textfield__input" type="text"
+                                           placeholder="Type here..." required>
+                                    <label class="mdl-textfield__label"></label>
+                                </div>
+                            </li>
+                            <li class="mdl-list__item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <strong class="text-upper text-primary">BET TYPE CODE</strong>
+                                    <input ng-model="vm.betTypeData.code" class="mdl-textfield__input" type="text"
+                                           placeholder="Type here..." required>
+                                    <label class="mdl-textfield__label"></label>
+                                </div>
+                            </li>
+                            <li class="mdl-list__item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <strong class="text-upper text-primary">LIVE EVENT TYPE</strong>
+                                    <select class="mdl-textfield__input"
+                                            ng-model="vm.betTypeData.liveEvent.value"
+                                            ng-options="type.name for type in vm.betTypeData.liveEvent.options">
+                                    </select>
+                                    <label class="mdl-textfield__label"></label>
+                                </div>
+                            </li>
+                            <li class="mdl-list__item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <strong class="text-upper text-primary">Ordering</strong>
+                                    <input ng-model="vm.betTypeData.ordering" class="mdl-textfield__input" type="number"
+                                           required>
+                                    <label class="mdl-textfield__label"></label>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <ul class='mdl-list'>
+                            <li class="mdl-list__item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <strong class="text-upper text-primary">BET TYPE SHORT NAME</strong>
+                                    <input ng-model="vm.betTypeData.shortName" class="mdl-textfield__input" type="text"
+                                           placeholder="Type here...">
+                                    <label class="mdl-textfield__label"></label>
+                                </div>
+                            </li>
+                            <li class="mdl-list__item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <strong class="text-upper text-primary">BET TYPE DESCRIPTION</strong>
+                                    <input ng-model="vm.betTypeData.description" class="mdl-textfield__input"
+                                           type="text"
+                                           placeholder="Type here...">
+                                    <label class="mdl-textfield__label"></label>
+                                </div>
+                            </li>
+                            <li class="mdl-list__item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <button type="button" ng-click="vm.loadBetTypeViews('update')"
+                                            class="text-muted mdl-button mdl-js-button mdl-button--icon">
+                                        <i class="material-icons">refresh</i>
+                                    </button>
+                                    <strong class="text-upper text-primary">ODDS VIEW</strong>
+                                    <select
+                                            style="padding-left: 35px"
+                                            class="mdl-textfield__input"
+                                            ng-model="vm.betTypeData.oddsView.value"
+                                            ng-options="view.Name for view in vm.betTypeData.oddsView.options">
+                                    </select>
+                                    <label class="mdl-textfield__label"></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--GENERAL TAB END-->
+
+            <!--ODDS TAB-->
+            <div ng-if="vm.isManage">
+                <div class="mdl-tabs__panel" id="system__bettypesModal__odds">
+                    <div class="overflow-auto max__height-500">
+                        <br>
+                        <table class="material__table-small">
+                            <thead>
+                            <tr class="text-upper">
+                                <th>Updated</th>
+                                <th>Ordering</th>
+                                <th>Odd Type</th>
+                                <th>Title</th>
+                                <th>Short name</th>
+                                <th>Column</th>
+                                <th></th>
+                                <th>
+                                    <button type="button" ng-click="vm.updateOddType()" style="margin-top: 10px;"
+                                            class="pull-right mdl-button mdl-js-button mdl-js-ripple-effect">
+                                        <i class="material-icons">&#xE145;</i>
+                                    </button>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="oddType in vm.betTypeData.oddTypes track by $index">
+                                <td ng-bind="oddType.ChangedDate | date: 'dd.MM.yyyy | HH:mm'"></td>
+                                <td><strong class="font-big" ng-bind="oddType.Ordering"></strong></td>
+                                <td><strong class="font-big" ng-bind="oddType.OddType"></strong></td>
+                                <td><strong class="font-big" ng-bind="oddType.Title"></strong></td>
+                                <td><strong class="font-big" ng-bind="oddType.ShortName"></strong></td>
+                                <td><strong class="font-big" ng-bind="oddType.SetColumn"></strong></td>
+                                <td>
+                                    <button type="button"
+                                            class="pull-right mdl-button mdl-js-button mdl-js-ripple-effect"
+                                            ng-click="vm.updateOddType(oddType)">
+                                        <i class="material-icons">build</i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button"
+                                            class="pull-right mdl-button mdl-js-button mdl-js-ripple-effect"
+                                            ng-click="vm.deleteOddType(oddType.Id)">
+                                        <i class="material-icons">delete_forever</i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--SPORT MEMBERS TAB-->
+
+            <div class="mdl-tabs__panel" id="system__bettypesModal__sportMembers">
+                <br>
+                <table class="material__table-small">
+                    <thead>
+                    <tr class="text-upper text-primary">
+                        <th>Updated</th>
+                        <th>Sport Name</th>
+                        <th>
+                            <button type="button" ng-click="vm.addSport()" style="margin-top: 10px;"
+                                    class="pull-right mdl-button mdl-js-button mdl-js-ripple-effect">
+                                <i class="material-icons">&#xE145;</i>
+                            </button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="sport in vm.betTypeData.sports track by $index">
+                        <td ng-bind="sport.ChangedDate | date: 'dd.MM.yyyy | HH:mm'"></td>
+                        <td ng-bind="sport.SportName"></td>
+                        <td>
+                            <button ng-click="vm.deleteSport(sport.Id)" type="button"
+                                    class="pull-right mdl-button mdl-js-button mdl-js-ripple-effect">
+                                <i class="material-icons">delete_forever</i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--SPORT MEMBERS TAB END-->
+            <p>
+                <br>
+                <button type="submit"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                        ng-bind="vm.buttonText">
+                </button>
+
+                <button type="button"
+                        class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                        ng-if="vm.isManage"
+                        ng-click="vm.deleteBetType()">
+                    Delete bet type
+                </button>
+            </p>
+        </div>
+    </form>
+
+</modal-wrapper>

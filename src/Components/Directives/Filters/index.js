@@ -1,0 +1,10 @@
+require('./systemSports');
+require('./systemSources');
+require('./systemCategories');
+require('./isImported');
+require('./isLive');
+require('./distTemplate');
+require('./systemEntities');
+require('./teamType');
+require('./searchLeague');
+require('./xmlTypes');

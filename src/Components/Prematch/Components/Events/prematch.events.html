@@ -1,0 +1,148 @@
+<filters-wrapper refresh="vm.refreshTable()">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sources with-all model="vm.filters.source" live-type="prematch"></filter-system-sources>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sports with-all model="vm.filters.sport" source="vm.filters.source"></filter-system-sports>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <strong class="text-upper text-primary">Begin Date</strong>
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.dates.begin.date"
+                   max-view="year"
+                   min-view="date"
+                   view="date"
+                   format="dd-MM-yyyy"
+                   max-date="vm.filters.dates.end.date">
+            <label class="mdl-textfield__label"></label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.dates.begin.time"
+                   max-view="hours"
+                   format="HH:mm">
+            <label class="mdl-textfield__label"></label>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <strong class="text-upper text-primary">End Date</strong>
+            <input class="mdl-textfield__input"
+                   date-time
+                   ng-model="vm.filters.dates.end.date"
+                   max-view="year"
+                   min-view="date"
+                   view="date"
+                   format="dd-MM-yyyy"
+                   min-date="vm.filters.dates.begin.date">
+            <label class="mdl-textfield__label"></label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.dates.end.time"
+                   max-view="hours"
+                   format="HH:mm"
+                   min-date="vm.filters.dates.begin.time">
+            <label class="mdl-textfield__label"></label>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-is-imported model="vm.filters.imported"></filter-is-imported>
+    </div>
+</filters-wrapper>
+
+<table class="material__table-small material__table-small-font">
+    <thead>
+    <tr>
+        <th>EventDate</th>
+        <th>Source</th>
+        <th>Sport</th>
+        <th>S.Sport</th>
+        <th>League</th>
+        <th>S.League</th>
+        <th>Event</th>
+        <th>HomeTeam</th>
+        <th>S.HomeTeam</th>
+        <th>GuestTeam</th>
+        <th>S.GuestTeam</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="event in vm.events track by $index"
+        class="calendar-hl-{{event.ColorStatus}} hover"
+        ng-click="vm.import(event)">
+        <td ng-bind="event.EventDate | date: 'yyyy-MM-dd | HH:mm'"></td>
+        <td>
+            <span ng-bind="event.SourceName"></span>
+            <span ng-if="event.ServiceNames">
+                [<span ng-bind="event.ServiceNames"></span>]
+            </span>
+        </td>
+        <td ng-bind="event.SportName"></td>
+        <td>
+            <span ng-bind="event.SystemSportName"></span>
+            [<span ng-bind="event.SportID"></span>]
+        </td>
+        <td ng-bind="event.LeagueName"></td>
+        <td>
+            <span ng-bind="event.SystemLeagueName"></span>
+            [<span ng-bind="event.LeagueID"></span>]
+        </td>
+        <td ng-bind="event.EventName"></td>
+        <td>
+            <span ng-bind="event.TeamHomeName"></span>
+            [<span class="link"
+                   ng-bind="event.ExTeamIDHome"
+                   ng-click="vm.associateTeam(event.ExTeamIDHome); $event.stopPropagation()"
+                   title="Associate home team"></span>]
+        </td>
+        <td>
+            <span ng-bind="event.SystemTeamHomeName"></span>
+            [<span class="link"
+                   ng-bind="event.TeamIDHome"
+                   ng-click="vm.teamSettings(event.TeamIDHome); $event.stopPropagation()"
+                   title="System team settings"></span>]
+        </td>
+        <td>
+            <span ng-bind="event.TeamGuestName"></span>
+            [<span class="link"
+                   ng-bind="event.ExTeamIDGuest"
+                   ng-click="vm.associateTeam(event.ExTeamIDGuest); $event.stopPropagation()"
+                   title="Associate guest team"></span>]
+        </td>
+        <td>
+            <span ng-bind="event.SystemTeamGuestName"></span>
+            [<span class="link"
+                   ng-bind="event.TeamIDGuest"
+                   ng-click="vm.teamSettings(event.TeamIDGuest); $event.stopPropagation()"
+                   title="System team settings"></span>]
+        </td>
+        <td>
+                <span ng-if="event.IsImported">
+                    <i class="material-icons">&#xE5CA;</i>
+                </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="calendar__description">
+    <div class="block calendar-hl-0"></div>
+    <div class="calendar__description-text">- Not started</div>
+    <div class="block calendar-hl-1"></div>
+    <div class="calendar__description-text">- Finished</div>
+    <div class="block calendar-hl-2"></div>
+    <div class="calendar__description-text">- Live</div>
+    <div class="block calendar-hl-3"></div>
+    <div class="calendar__description-text">- Live without odds</div>
+    <div class="block calendar-hl-4"></div>
+    <div class="calendar__description-text">- Cannot be imported</div>
+</div>

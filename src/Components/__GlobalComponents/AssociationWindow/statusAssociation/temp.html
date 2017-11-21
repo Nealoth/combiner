@@ -1,0 +1,28 @@
+<modal-wrapper>
+
+    <h5 class="text-primary text-center" ng-bind="vm.name"></h5>
+
+    <input-default label="Search" model="vm.search"></input-default>
+
+    <div class="max__height-400 overflow-auto">
+        <table class="material__table-small">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="status in vm.table | filter: vm.search track by $index"
+                class="hover"
+                ng-click="vm.associate(status.ID)">
+                <td ng-bind="status.ID"></td>
+                <td ng-bind="status.Name"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <button-default ng-click="vm.associate(null)">Remove association</button-default>
+</modal-wrapper>

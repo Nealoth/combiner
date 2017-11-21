@@ -1,0 +1,29 @@
+<modal-wrapper>
+  <input-default model="vm.name"></input-default>
+  <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="vm.loadSystemPlayers()">
+    <i class="material-icons">loop</i>
+  </button>
+
+  <div class="max__height-500 overflow-auto">
+    <table class="material__table-small">
+      <thead>
+      <th>Player Name</th>
+      </thead>
+      <tbody>
+      <tr ng-repeat="systemPlayer in vm.systemPlayers track by $index"
+          class="hover"
+          ng-click="vm.associate(systemPlayer)">
+        <td>
+          [<span ng-bind="systemPlayer.ID"></span>]
+          <span ng-bind="systemPlayer.PlayerName"></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button-default primary ng-click="vm.import()">Import</button-default>
+
+  <button-default class="pull-right" ng-click="vm.associate(null)">Remove Association</button-default>
+
+</modal-wrapper>

@@ -1,0 +1,2 @@
+require('./tableExtended');
+require('./tableBackendPaginated');

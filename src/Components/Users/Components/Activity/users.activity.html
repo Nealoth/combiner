@@ -1,0 +1,81 @@
+<filters-wrapper refresh="vm.refresh()">
+  <div class="mdl-cell mdl-cell--1-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">Begin Date</strong>
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.dates.begin.date"
+             max-view="year"
+             min-view="date"
+             view="date"
+             format="dd-MM-yyyy"
+             max-date="vm.filters.dates.end.date">
+      <label class="mdl-textfield__label"></label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.dates.begin.time"
+             max-view="hours"
+             format="HH:mm">
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+  <div class="mdl-cell mdl-cell--1-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">End Date</strong>
+      <input class="mdl-textfield__input"
+             date-time
+             ng-model="vm.filters.dates.end.date"
+             max-view="year"
+             min-view="date"
+             view="date"
+             format="dd-MM-yyyy"
+             min-date="vm.filters.dates.begin.date">
+      <label class="mdl-textfield__label"></label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.dates.end.time"
+             max-view="hours"
+             format="HH:mm"
+             min-date="vm.filters.dates.begin.time">
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+  <div class="mdl-cell mdl-cell--3-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">User</strong>
+      <select class="mdl-textfield__input"
+              ng-options="option.FirstName + ' ' + option.SecondName + ' (' + option.Login + ')' for option in vm.filters.users.options"
+              ng-model="vm.filters.users.model">
+      </select>
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+</filters-wrapper>
+
+<table-extended list="vm.table"
+                livesearch="vm.filters.search"
+                accessor="__table_extended_list"
+                config="__table_extended_config">
+  <table class='material__table-small' at-table at-paginated at-list="__table_extended_list"
+         at-config="__table_extended_config">
+    <thead>
+    <tr>
+      <th class="hover" at-attribute="Act">Action</th>
+      <th class="hover" at-attribute="value">Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="hover">
+      <td at-implicit at-sortable at-attribute="Act"></td>
+      <td at-implicit at-sortable at-attribute="value"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-extended>

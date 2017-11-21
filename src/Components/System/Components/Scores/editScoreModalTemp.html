@@ -1,0 +1,75 @@
+<modal-wrapper>
+  <form ng-submit="vm.submit()">
+
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+      <div class="mdl-tabs__tab-bar">
+        <a href="#system__scores__tab-general" class="mdl-tabs__tab is-active">General</a>
+        <a ng-show="vm.isManage" ng-click="vm.getSports()" href="#system__scores__tab-sports" class="mdl-tabs__tab">Sports</a>
+      </div>
+
+      <div class="mdl-tabs__panel is-active" id="system__scores__tab-general">
+
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col">
+            <input-default model="vm.name" label="Name" required></input-default>
+
+            <input-default model="vm.period" label="Period Number" type="number" required></input-default>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <strong class="text-primary text-upper">Score type</strong>
+              <select ng-model="vm.types.model" ng-options="option.Name for option in vm.types.options" class="mdl-textfield__input" type="text"></select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--6-col">
+            <input-default model="vm.code" label="Code" type="text" required></input-default>
+
+            <input-default model="vm.ordering" label="Ordering" type="number" required></input-default>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <strong class="text-primary text-upper">Score kind</strong>
+              <select ng-model="vm.kinds.model" ng-options="option.Name for option in vm.kinds.options" class="mdl-textfield__input" type="text"></select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+              <input ng-model="vm.isCalc" type="checkbox" class="mdl-checkbox__input" checked>
+              <strong class="mdl-checkbox__label text-primary text-upper">Is calculated</strong>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="mdl-tabs__panel" id="system__scores__tab-sports">
+        <br>
+        <table class="material__table-small">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>
+              <button type="button"
+                      class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+                      ng-click="vm.addSport()">
+                <i class="material-icons">add</i>
+              </button>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="hover" ng-repeat="sport in vm.sports track by $index">
+            <td ng-bind="sport.SportID"></td>
+            <td ng-bind="sport.SportName"></td>
+            <td>
+              <i ng-click="vm.removeSport(sport)" class="pull-right material-icons">&#xE92B;</i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br>
+    <button ng-bind="::vm.buttonText" type="submit" class="mdl-button mdl-button--raised mdl-button--colored">
+    </button>
+  </form>
+
+</modal-wrapper>

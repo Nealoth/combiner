@@ -1,0 +1,57 @@
+<div class="mdl-grid">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>Changed</th>
+      <th>Birth Date</th>
+      <th>Last Activity</th>
+      <!--<th>Person ID</th>-->
+      <!--<th>User Person ID</th>-->
+      <!--<th>Type</th>-->
+      <!--<th>UTCDiff</th>-->
+      <!--<th>User TemplateID</th>-->
+      <!--<th>Dist TemplateID</th>-->
+      <th>FistName</th>
+      <th>MiddleName</th>
+      <th>SecondName</th>
+      <th>Sex</th>
+      <th>Login</th>
+      <th>Email</th>
+      <th>
+        <button ng-click="vm.refresh(true)"
+                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--raised mdl-button--colored"
+                style="margin-left: 15px">
+          <i class="material-icons">loop</i>
+        </button>
+
+        <button ng-click="vm.editPerson(null)"
+                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+          <i class="material-icons">add</i>
+        </button>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="hover"
+        ng-repeat="user in vm.table track by $index"
+        ng-click="vm.editPerson(user)">
+      <td ng-bind="user.ChangedDate | date: 'dd.MM.yyyy | HH:mm'"></td>
+      <td ng-bind="user.DateOfBirth | date: 'dd.MM.yyyy'"></td>
+      <td ng-bind="user.LastActivity | date: 'dd.MM.yyyy | HH:mm'"></td>
+      <!--<td ng-bind="user.PersonnelID"></td>-->
+      <!--<td ng-bind="user.UserPersonnelID"></td>-->
+      <!--<td ng-bind="user.Type"></td>-->
+      <!--<td ng-bind="user.UTCDiff"></td>-->
+      <!--<td ng-bind="user.Us_TemplateID"></td>-->
+      <!--<td ng-bind="user.DistributeTemplateID"></td>-->
+      <td ng-bind="user.FirstName"></td>
+      <td ng-bind="user.MiddleName"></td>
+      <td ng-bind="user.SecondName"></td>
+      <td ng-bind="user.Sex"></td>
+      <td ng-bind="user.Login"></td>
+      <td ng-bind="user.Email"></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

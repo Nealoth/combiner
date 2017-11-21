@@ -1,0 +1,82 @@
+.material-tree {
+    padding: 0;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.64);
+    width: 100%;
+    max-width: 300px;
+    overflow: auto;
+    max-height: 50vh;
+}
+
+.material-tree ul {
+    width: 100%;
+}
+
+.material-tree li {
+    list-style: none;
+    max-width: 350px;
+}
+
+.material-tree ul:not(:first-child) {
+    padding-left: 20px;
+}
+
+.material-tree ul:last-child {
+    list-style: disc;
+}
+
+.material-tree ul ul {
+    border-left: 1px solid rgba(0, 0, 0, 0.23);
+    margin: 0;
+}
+
+.material-tree div {
+    padding: 3px 10px 3px 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.material-tree div:hover {
+    background-color: rgba(0, 0, 0, 0.23);
+}
+
+.material-tree div:before {
+    content: '+';
+    margin-right: 10px;
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.material-tree ul .material-tree-active {
+    /*background-color: #e0e0e0;*/
+    border-left: 1px solid rgba(0, 0, 0, 0.23);
+    /*border-top: 1px solid rgba(0, 0, 0, 0.23);*/
+}
+
+.material-tree .material-tree-active:before {
+    content: '-';
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.material-tree ul ul ul div:before {
+    content: '-' !important;
+}
+
+.material-tree__heading {
+    max-width: 350px;
+    background-color: rgba(255, 255, 255, 0.64);
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.23);
+}
+
+.material-tree__heading-active {
+    background-color: #607d8b !important;
+    color: white;
+}
+
+.material-tree__wrapper {
+    display: block;
+    max-width: 300px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}

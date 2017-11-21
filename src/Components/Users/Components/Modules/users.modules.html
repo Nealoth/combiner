@@ -1,0 +1,11 @@
+<div class="users__modules-tree_wrapper">
+    <ul class="users__modules-tree">
+        <li>
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                    ng-click="vm.createNewModule(null)">
+                Add new module
+            </button>
+        </li>
+        <li class="users__modules-tree_parent" ng-repeat="module in vm.modules track by module.Id + '-' + $index" tree-list="module" on-click="vm.clickOnModule"></li>
+    </ul>
+</div>

@@ -1,0 +1,54 @@
+<modal-wrapper>
+  <h5 class="text-upper text-primary" ng-bind="::vm.event.EventName"></h5>
+  <strong class="text-upper text-primary">Search by system event</strong>
+  <button class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="vm.viewOdds()">
+    View odds
+  </button>
+  <br>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <strong class="text-upper text-primary">Home Team Name</strong>
+    <input class="mdl-textfield__input" type="text" ng-model="vm.searchBySystemEvent.TeamHomeName">
+    <label class="mdl-textfield__label"></label>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <strong class="text-upper text-primary">Guest Team Name</strong>
+    <input class="mdl-textfield__input" type="text" ng-model="vm.searchBySystemEvent.TeamGuestName">
+    <label class="mdl-textfield__label"></label>
+  </div>
+
+  <div style="max-height: 50vh; overflow: auto;">
+    <table class="material__table-small">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Sport</th>
+        <th>League</th>
+        <th>Event</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="hover" ng-repeat="systemEvent in vm.systemEvents | filter: vm.searchBySystemEvent" ng-click="vm.import(systemEvent, true)">
+        <td ng-bind="systemEvent.EventDate | date: 'yyyy-MM-dd | HH:mm'"></td>
+        <td ng-bind="::systemEvent.SportName"></td>
+        <td ng-bind="::systemEvent.LeagueName"></td>
+        <td ng-bind="::systemEvent.EventName"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col">
+      <button class="pull-left mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="vm.import(null, false)">
+        Unimport
+      </button>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-cell mdl-cell--4-col">
+      <button ng-disabled="vm.canImport" class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" ng-click="vm.import(null, true)">
+        Import from source
+      </button>
+    </div>
+  </div>
+</modal-wrapper>

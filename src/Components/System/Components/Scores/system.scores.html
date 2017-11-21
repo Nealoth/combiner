@@ -1,0 +1,44 @@
+<filters-wrapper refresh="vm.refresh()">
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-sports with-all model="vm.sport"></filter-system-sports>
+  </div>
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-default model="vm.search" label="Search"
+                   placeholder="Search in scores table..."
+                   debounce="500"></input-default>
+  </div>
+  <div class="mdl-layout-spacer"></div>
+  <div class="mdl-cell mdl-cell--3-col">
+    <button ng-click="vm.openModal()"
+            class="pull-right mdl-button mdl-button--raised mdl-button--colored">
+      Create new score
+    </button>
+  </div>
+</filters-wrapper>
+
+<table-extended list="vm.scoresTable"
+                livesearch="vm.search"
+                accessor="__table_extended_list"
+                config="__table_extended_config">
+  <table class='material__table-small' at-table at-paginated at-list="__table_extended_list"
+         at-config="__table_extended_config">
+    <thead>
+    <tr>
+      <th class="hover" at-attribute="Id">ID</th>
+      <th class="hover" at-attribute="ChangedDate">Changed</th>
+      <th class="hover" at-attribute="Code">Code</th>
+      <th class="hover" at-attribute="Name">Name</th>
+      <th class="hover" at-attribute="Ordering">Ordering</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="hover" ng-click="vm.openModal(item)">
+      <td width="100" at-implicit at-sortable at-attribute="Id"></td>
+      <td width="150" at-implicit at-sortable at-attribute="ChangedDate" at-initial-sorting="desc"></td>
+      <td width="100" at-implicit at-sortable at-attribute="Code"></td>
+      <td at-implicit at-sortable at-attribute="Name"></td>
+      <td at-implicit at-sortable at-attribute="Ordering"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-extended>

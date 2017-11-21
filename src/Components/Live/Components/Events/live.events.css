@@ -1,0 +1,14 @@
+.live__events_button-side {
+    position: fixed;
+    z-index: 100500;
+    margin-left: -55px;
+    transition: all ease-in-out .2s;
+    width: 50px;
+}
+.live__events_button-side:hover {
+    margin-left: -2px;
+}
+
+/*.live__events_button-hover {*/
+    /*margin-left: 0;*/
+/*}*/

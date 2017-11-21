@@ -1,0 +1,56 @@
+<filters-wrapper refresh="vm.refresh()">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sports model="vm.filters.sport"></filter-system-sports>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <input-default model="vm.filters.search" label="Search"
+                       placeholder="Search in leagues table..."></input-default>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-categories model="vm.filters.category" with-all></filter-system-categories>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <button ng-click="vm.openEditModal()"
+                class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+            Create new league
+        </button>
+    </div>
+</filters-wrapper>
+
+<table-backend-paginated per-page="vm.rowCount"
+                         current-page="vm.pageNumber"
+                         total-count="vm.count"
+                         refresh-function="vm.refresh()">
+    <table class="material__table-small">
+        <thead>
+        <tr>
+            <th>Changed</th>
+            <th>Name</th>
+            <th>Ordering</th>
+            <th>Code</th>
+            <th>Category</th>
+            <th>StageType</th>
+            <th>Teams</th>
+            <th>TableID</th>
+            <th>GroupID</th>
+            <th>ContinentID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="league in vm.table track by $index"
+            ng-click="vm.edit(league)" class="hover">
+            <td ng-bind="league.ChangedDate"></td>
+            <td ng-bind="league.Name"></td>
+            <td ng-bind="league.Ordering"></td>
+            <td ng-bind="league.Code"></td>
+            <td ng-bind="league.CategoryName"></td>
+            <td ng-bind="league.StageType"></td>
+            <td ng-bind="league.NumberOfTeams"></td>
+            <td ng-bind="league.TableID"></td>
+            <td ng-bind="league.LeagueGroupID"></td>
+            <td ng-bind="league.ContinentID"></td>
+        </tr>
+        </tbody>
+    </table>
+</table-backend-paginated>

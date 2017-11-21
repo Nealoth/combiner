@@ -1,0 +1,14 @@
+<modal-wrapper>
+  <h5 class="text-center">Change all values in <span ng-bind="vm.header"></span> column</h5>
+  <br>
+  <form ng-submit="confirm(vm.value)">
+    <div class="flex-x-center">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input ng-model="vm.value" class="mdl-textfield__input" type="number" min="0">
+        <label class="mdl-textfield__label"></label>
+      </div>
+    </div>
+    <button-default type="submit" primary>Change values</button-default>
+  </form>
+
+</modal-wrapper>

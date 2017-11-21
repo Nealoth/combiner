@@ -1,0 +1,35 @@
+<filters-wrapper refresh="vm.refresh()">
+  <filter-dist-template model="vm.filters.distTemplate" with-all></filter-dist-template>
+</filters-wrapper>
+
+<table class="material__table-small">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Template Name</th>
+      <th>ON</th>
+      <th>Link</th>
+      <th>
+        <button ng-click="vm.editTemplate(null)"
+                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--raised">
+          <i class="material-icons">add</i>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="hover"
+        ng-repeat="template in vm.table track by $index"
+        ng-click="vm.editTemplate(template)">
+      <td ng-bind="template.ID"></td>
+      <td ng-bind="template.DistributeTemplateName"></td>
+      <td>
+        <i ng-if="template.IsOn" class="material-icons" style="font-size: 16px;">check</i>
+      </td>
+      <td ng-bind="template.Link"></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+

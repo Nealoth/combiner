@@ -1,0 +1,30 @@
+{
+  "name": "Combiner",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "ng-dialog": "^0.6.4",
+    "angular-loading-bar": "^0.9.0",
+    "at-table": "^1.0.7",
+    "ngSticky": "^1.8.13",
+    "angular-ui-router-anim-in-out": "^1.0.2",
+    "angular-ivh-treeview": "^1.0.6",
+    "angular-highlightjs": "^0.7.1",
+    "json-formatter": "^0.6.0",
+    "angular-tooltips": "tooltips-angular#^1.0.4",
+    "v-accordion": "^1.6.0"
+  },
+  "resolutions": {
+    "angular": "~1.2.9"
+  }
+}

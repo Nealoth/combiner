@@ -1,0 +1,12 @@
+<modal-wrapper>
+  <div ng-if="!vm.services" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active blocked-spinner"></div>
+
+  <ul ng-if="vm.services" class="mdl-list">
+    <li class="mdl-list__item hover"
+        ng-repeat="service in vm.services track by $index"
+        ng-click="confirm(service)">
+      <span class="mdl-list__item-primary-content" ng-bind="service.Name"></span>
+    </li>
+  </ul>
+
+</modal-wrapper>

@@ -1,0 +1,47 @@
+<filters-wrapper refresh="vm.refresh()">
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-sources model="vm.filters.source"></filter-system-sources>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-sports model="vm.filters.sport"></filter-system-sports>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-default label="Search" model="vm.filters.search" placeholder="Search after refresh..."></input-default>
+  </div>
+
+</filters-wrapper>
+
+<table-backend-paginated per-page="vm.itemsPerPage"
+                         current-page="vm.currentPage"
+                         total-count="vm.count"
+                         refresh-function="vm.refresh()">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>Changed</th>
+      <th>Source name</th>
+      <th>System name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="player in vm.table track by $index"
+        class="hover"
+        ng-click="vm.associate(player)">
+      <td ng-bind="player.ChangedDate"></td>
+      <td>
+        [<span ng-bind="player.ID"></span>]
+        <span ng-bind="player.PlayerName"></span>
+      </td>
+      <td>
+        <span ng-if="player.PlayerID">
+          [<span ng-bind="player.PlayerID"></span>]
+        </span>
+        <span ng-bind="player.SystemName"></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</table-backend-paginated>

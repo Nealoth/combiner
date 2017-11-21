@@ -1,0 +1,44 @@
+<filters-wrapper refresh="vm.refresh()">
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-sports model="vm.filters.sport" with-all></filter-system-sports>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-default label="Search" model="vm.filters.search" placeholder="Search after refresh..."></input-default>
+  </div>
+
+  <div class="mdl-layout-spacer"></div>
+  <div class="mdl-cell mdl-cell--3-col">
+    <button-default type="button" primary ng-click="vm.edit()">
+      Create new player
+    </button-default>
+  </div>
+
+</filters-wrapper>
+
+<table-backend-paginated per-page="vm.itemsPerPage"
+                         current-page="vm.currentPage"
+                         total-count="vm.count"
+                         refresh-function="vm.refresh()">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>Changed</th>
+      <th>ID</th>
+      <th ng-show="!vm.filters.sport">Sport</th>
+      <th>Player</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="player in vm.table track by $index"
+        class="hover"
+        ng-click="vm.edit(player)">
+      <td width="150px" ng-bind="player.ChangedDate"></td>
+      <td ng-bind="player.ID"></td>
+      <td ng-show="!vm.filters.sport" ng-bind="player.SportName"></td>
+      <td ng-bind="player.PlayerName"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-backend-paginated>

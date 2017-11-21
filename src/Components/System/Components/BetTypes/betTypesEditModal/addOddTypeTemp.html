@@ -1,0 +1,92 @@
+<modal-wrapper>
+  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    <div class="mdl-tabs__tab-bar">
+      <a href="#system__oddTypesModal__general" class="mdl-tabs__tab is-active">General</a>
+      <a ng-show="vm.isManage" href="#system__oddTypesModal__sportMembers" class="mdl-tabs__tab">Sport Members</a>
+    </div>
+
+    <div class="mdl-tabs__panel is-active" id="system__oddTypesModal__general">
+      <form ng-submit="confirm(vm.data)">
+
+        <ul class='mdl-list'>
+
+          <li class="mdl-list__item">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input ng-model="vm.data.oddType" tabindex="3" class="mdl-textfield__input" type="number"
+                     placeholder="Type here..." required>
+              <label class="mdl-textfield__label"><strong>ODD TYPE</strong></label>
+            </div>
+          </li>
+
+          <li class="mdl-list__item">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input ng-model="vm.data.title" tabindex="1" class="mdl-textfield__input" type="text"
+                     placeholder="Type here..." autofocus required>
+              <label class="mdl-textfield__label"><strong>TITLE</strong></label>
+            </div>
+          </li>
+
+          <li class="mdl-list__item">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input ng-model="vm.data.ordering" tabindex="4" class="mdl-textfield__input" type="number"
+                     placeholder="Type here..." required>
+              <label class="mdl-textfield__label"><strong>ORDERING</strong></label>
+            </div>
+          </li>
+
+          <li class="mdl-list__item">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input ng-model="vm.data.column" tabindex="5" class="mdl-textfield__input" type="number"
+                     placeholder="Type here..." required>
+              <label class="mdl-textfield__label"><strong>COLUMN</strong></label>
+            </div>
+          </li>
+
+          <li class="mdl-list__item">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input ng-model="vm.data.shortName" tabindex="2" class="mdl-textfield__input" type="text"
+                     placeholder="Type here...">
+              <label class="mdl-textfield__label"><strong>SHORT NAME</strong></label>
+            </div>
+          </li>
+
+        </ul>
+
+        <button type="submit" tabindex="6" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                ng-bind="vm.buttonText"></button>
+      </form>
+
+    </div>
+    <div class="mdl-tabs__panel" id="system__oddTypesModal__sportMembers">
+      <br>
+      <div class="overflow-auto max__height-500">
+        <table class="material__table-small">
+          <thead>
+          <tr>
+            <th>Changed</th>
+            <th>Name</th>
+            <th>
+              <button class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" ng-click="vm.addSport()">
+                <i class="material-icons">add</i>
+              </button>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="sport in vm.sports track by $index">
+            <td ng-bind="sport.ChangedDate | date: 'yyyy-MM-dd | HH:mm'"></td>
+            <td ng-bind="sport.SportName"></td>
+            <td>
+              <button class="pull-right mdl-button mdl-js-button mdl-button--icon" ng-click="vm.deleteSport(sport.Id)">
+                <i class="material-icons">delete</i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</modal-wrapper>

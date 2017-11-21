@@ -1,0 +1,247 @@
+<button type="button"
+        class="live__events_button-side live__events_button-hover mdl-button mdl-button--raised mdl-button--colored"
+        style="position: fixed; margin-top: 5%;"
+        ng-show="vm.filtersCollapsed"
+        ng-click="vm.filtersCollapsed = false">
+    <i class="material-icons">&#xE5C8;</i>
+</button>
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col" ng-show="!vm.filtersCollapsed">
+
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
+                ng-if="::vm.oddsKeys.length"
+                ng-click="vm.filtersCollapsed = true"
+                title="Hide filters" title-direction="right">
+            <i class="material-icons">&#xE317;</i>
+        </button>
+
+        <filter-is-live model="vm.filters.isLive"></filter-is-live>
+        <div ng-if="vm.rights.viewTemplates">
+            <filter-dist-template model="vm.filters.distTemplate"></filter-dist-template>
+        </div>
+        <div>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" style="margin-left: 15px; width: 200px;">
+                <input type="checkbox" class="mdl-switch__input" checked ng-model="vm.filters.isActive">
+                <span class="mdl-switch__label">Only active</span>
+            </label>
+            <br><br>
+            <sports-tree
+                    callback="vm.getOddsKeys(treeData)"
+                    live-type="vm.filters.isLive"
+                    is-only-active="vm.filters.isActive"
+                    dist-template="vm.filters.distTemplate"></sports-tree>
+        </div>
+    </div>
+    <div class="mdl-cell"
+         ng-class="{'mdl-cell--12-col': vm.filtersCollapsed, 'mdl-cell--10-col': !vm.filtersCollapsed}">
+        <form ng-submit="vm.updateAll()">
+            <div class="overflow-auto" style="max-height: 85vh">
+                <table style="min-width: 940px;" class="material__table-small configuration__oddsKeys__mainTable"
+                       ng-show="::vm.oddsKeys.length">
+                    <thead>
+                    <tr ng-class="{'bg-danger': !vm.currentTree.isEnabled, 'bg-primary': vm.currentTree.isEnabled}">
+                        <th colspan="7" style="padding: 3px;"></th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" class="allow-select text-left">
+                            <input type="checkbox"
+                                   class="pointer"
+                                   ng-model="vm.currentTree.isEnabled"
+                                   ng-change="vm.updateDistributedEntity()">
+                            &nbsp;&nbsp;&nbsp;
+                            <span ng-bind="vm.currentTree.data.sport.Name"
+                                  title="Sport"></span>
+                            <strong ng-show="vm.currentTree.data.country.Name">
+                                &nbsp;&nbsp;&nbsp;
+                                /
+                                &nbsp;&nbsp;&nbsp;
+                            </strong>
+                            <span title="Country">
+                            <span ng-bind="vm.currentTree.data.country.Name"></span>
+                            <span ng-show="vm.currentTree.data.country.Code">
+                                (<span ng-bind="vm.currentTree.data.country.Code"></span>)
+                            </span>
+                        </span>
+                            <strong ng-show="vm.currentTree.data.league.Name">
+                                &nbsp;&nbsp;&nbsp;
+                                /
+                                &nbsp;&nbsp;&nbsp;
+                            </strong>
+                            <span ng-bind="vm.currentTree.data.league.Name"
+                                  title="League"></span>
+                            <strong ng-show="vm.currentTree.data.event.EventName">
+                                &nbsp;&nbsp;&nbsp;
+                                /
+                                &nbsp;&nbsp;&nbsp;
+                            </strong>
+                            <span ng-bind="vm.currentTree.data.event.EventName"
+                                  title="Event"></span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">
+                            <button-default style="margin: 0 10px 0 10px;" class="pull-left"
+                                            primary
+                                            type="submit">Save all changes
+                            </button-default>
+                            <button-default type="button" style="margin: 0 10px 0 10px;" class="pull-left"
+                                            accent
+                                            ng-click="vm.clearAll()">Clear all
+                            </button-default>
+                            <button-default type="button" style="margin: 0 10px 0 10px;" class="pull-left"
+                                            primary
+                                            ng-click="vm.copyFrom()">Copy values from...
+                            </button-default>
+                            <button-default type="button" style="margin: 0 10px 0 10px;" class="pull-right" primary
+                                            ng-click="vm.getOddsKeys()">
+                                Refresh
+                            </button-default>
+                            <button-default type="button" style="margin: 0 10px 0 10px;" class="pull-right"
+                                            ng-click="vm.discardChanges()">Discard all
+                                changes
+                            </button-default>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <button type="button"
+                                    class="mdl-button mdl-js-button mdl-button--icon"
+                                    title="Include all bet types"
+                                    title-direction="left" ng-click="vm.changeIncluding(true)">
+                                <i class="material-icons">done_all</i>
+                            </button>
+                            <button type="button"
+                                    class="mdl-button mdl-js-button mdl-button--icon"
+                                    title="Exclude all bet types"
+                                    title-direction="left" ng-click="vm.changeIncluding(false)">
+                                <i class="material-icons">highlight_off</i>
+                            </button>
+                            &nbsp;&nbsp;Name
+                        </th>
+                        <th style="width: 150px;">Service</th>
+                        <th style="width: 170px;">
+                            <button type="button" ng-click="vm.changeValue('Mult', -0.01)"
+                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">remove</i>
+                            </button>
+                            <button type="button" class="mdl-button mdl-js-button"
+                                    ng-click="vm.changeAllValues('multiplier', 'Mult')">
+                                Mult
+                            </button>
+                            <button type="button" ng-click="vm.changeValue('Mult', 0.01)"
+                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </th>
+                        <th style="width: 180px;">
+                            <button type="button" ng-click="vm.changeValue('OddsKey', -1)"
+                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">remove</i>
+                            </button>
+                            <button type="button" class="mdl-button mdl-js-button"
+                                    ng-click="vm.changeAllValues('margin', 'OddsKey')">
+                                Margin
+                            </button>
+                            <button type="button" ng-click="vm.changeValue('OddsKey', 1)"
+                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </th>
+                        <th style="width: 240px;">
+                            <button type="button" ng-click="vm.changeValue('MinimumOffer', -0.01)"
+                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">remove</i>
+                            </button>
+                            <button type="button" class="mdl-button mdl-js-button"
+                                    ng-click="vm.changeAllValues('min offers', 'MinimumOfferParent')">
+                                Min Offer
+                            </button>
+                            <button type="button" ng-click="vm.changeValue('MinimumOffer', 0.01)"
+                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </th>
+                        <th style="width: 220px;">
+                            <button type="button" ng-click="vm.changeValue('MaximumCap', -1)"
+                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">remove</i>
+                            </button>
+                            <button type="button" class="mdl-button mdl-js-button"
+                                    ng-click="vm.changeAllValues('max caps', 'MaximumCap')">
+                                Max Cap
+                            </button>
+                            <button type="button" ng-click="vm.changeValue('MaximumCap', 1)"
+                                    class="mdl-button mdl-js-button mdl-button--icon">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="hover" ng-repeat="oddsKey in vm.oddsKeys track by $index"
+                        ng-class="{'active': oddsKey.changed}">
+                        <td>
+                            <input type="checkbox"
+                                   ng-model="oddsKey.IsOn"
+                                   ng-change="vm.changeRow(oddsKey, 'IsOn')"
+                                   >
+                            &nbsp;
+                            <span ng-bind="oddsKey.BetTypeName"></span>
+                        </td>
+                        <td ng-click="vm.changeService(oddsKey)">
+                            <span ng-bind="oddsKey.ServiceName"></span>
+                            &nbsp;(<span ng-bind="oddsKey.ServiceParentName"></span>)
+                        </td>
+                        <td>
+                            <input
+                                    style="width:70px;" type="number"
+                                    ng-model="vm.oddsKeys[$index].Mult"
+                                    ng-disabled="!oddsKey.IsMult"
+                                    ng-change="vm.changeRow(oddsKey, 'Mult')"
+                                    min="{{oddsKey.MultMinPossible}}"
+                                    max="{{oddsKey.MultMaxPossible}}"
+                                    step="0.01"/>
+                            &nbsp;
+                            <span ng-if="oddsKey.IsMult">
+            (<span ng-bind="oddsKey.MultParent"></span>)
+          </span>
+                        </td>
+                        <td>
+                            <input style="width:70px;" type="number"
+                                   ng-model="vm.oddsKeys[$index].OddsKey"
+                                   ng-disabled="oddsKey.IsMult"
+                                   ng-change="vm.changeRow(oddsKey, 'OddsKey')"
+                                   min="{{oddsKey.OddsKeyMinPossible}}"
+                                   max="{{oddsKey.OddsKeyMaxPossible}}"
+                                   step="1"
+                            />
+                            &nbsp;
+                            <span ng-if="!oddsKey.IsMult">
+            (<span ng-bind="oddsKey.OddsKeyParent"></span>)
+          </span>
+                        </td>
+                        <td>
+                            <input style="width:70px;" type="number"
+                                   ng-model="vm.oddsKeys[$index].MinimumOffer"
+                                   ng-change="vm.changeRow(oddsKey, 'MinimumOffer')"
+                                   step="0.01"
+                                   min="0"/>
+                            &nbsp;(<span ng-bind="oddsKey.MinimumOfferParent"></span>)
+                        </td>
+                        <td>
+                            <input style="width:70px;" type="number"
+                                   ng-model="vm.oddsKeys[$index].MaximumCap"
+                                   ng-change="vm.changeRow(oddsKey, 'MaximumCap')"
+                                   min="0"/>
+                            &nbsp;(<span ng-bind="oddsKey.MaximumCapParent"></span>)
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,175 @@
+<filters-wrapper refresh="vm.refreshTable()">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sources with-all model="vm.filters.source" live-type="live"></filter-system-sources>
+
+        <label class="mdl-switch mdl-js-switch">
+            <input type="checkbox" class="mdl-switch__input"
+                   ng-model="vm.filters.combineMode"
+                   ng-change="vm.refreshTable()"
+                   ng-model-options="{ debounce: 300 }">
+            <span class="mdl-switch__label">Combine mode</span>
+        </label>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sports model="vm.filters.sport" source="vm.filters.source" with-all></filter-system-sports>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <strong class="text-upper text-primary">Begin Date</strong>
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.dates.begin.date"
+                   max-view="year"
+                   min-view="date"
+                   view="date"
+                   format="dd-MM-yyyy"
+                   max-date="vm.filters.dates.end.date">
+            <label class="mdl-textfield__label"></label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.dates.begin.time"
+                   max-view="hours"
+                   format="HH:mm">
+            <label class="mdl-textfield__label"></label>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <strong class="text-upper text-primary">End Date</strong>
+            <input class="mdl-textfield__input"
+                   date-time
+                   ng-model="vm.filters.dates.end.date"
+                   max-view="year"
+                   min-view="date"
+                   view="date"
+                   format="dd-MM-yyyy"
+                   min-date="vm.filters.dates.begin.date">
+            <label class="mdl-textfield__label"></label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.dates.end.time"
+                   max-view="hours"
+                   format="HH:mm"
+                   min-date="vm.filters.dates.begin.time">
+            <label class="mdl-textfield__label"></label>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-is-imported model="vm.filters.imported"></filter-is-imported>
+
+        <input-default placeholder="Search in table..." debounce="500" model="vm.filters.liveSearch"></input-default>
+    </div>
+</filters-wrapper>
+
+<button ng-if="vm.filters.combineMode" type="button"
+        class="live__events_button-side live__events_button-hover mdl-button mdl-button--raised mdl-button--colored"
+        ng-bind="vm.itemsToCombine.length"
+        ng-click="vm.combine()">
+</button>
+
+<table-extended list="vm.events"
+                livesearch="vm.filters.liveSearch"
+                accessor="__table_extended_list"
+                config="__table_extended_config">
+    <table class='material__table-small' at-table at-paginated at-list="__table_extended_list"
+           at-config="__table_extended_config">
+        <thead>
+        <tr>
+            <th class="hover" at-attribute="EventDate">Date</th>
+            <th class="hover" at-attribute="SourceName">SRC</th>
+            <th class="hover" at-attribute="SportName">Sport</th>
+            <th class="hover" at-attribute="LeagueName">League</th>
+            <th class="hover" at-attribute="EventName">Event</th>
+            <th class="hover" at-attribute="SystemTeamHomeName">S.Event</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="{{vm.rowColor(item)}}" ng-click="vm.addToCombine(item)">
+            <td width="100" at-sortable at-attribute="EventDate" at-initial-sorting="asc">
+                <span ng-bind="item.EventDate | date: 'dd.MM | HH:mm'"></span>
+            </td>
+
+            <td width="80" at-sortable at-attribute="SourceName">
+                <span ng-bind="item.SourceName"></span>
+                <span ng-if="item.ServiceNames">
+          [<span ng-bind="item.ServiceNames"></span>]
+        </span>
+            </td>
+
+            <td at-sortable at-attribute="SportName">
+                <span ng-bind="item.SportName"></span>
+                (
+                <span ng-bind="item.SystemSportName"></span>
+                [<span ng-bind="item.SportID"></span>]
+                )
+            </td>
+
+            <td at-sortable at-attribute="LeagueName">
+                <span ng-bind="item.LeagueName"></span>
+                (
+                <span ng-bind="item.SystemLeagueName"></span>
+                [<span ng-bind="item.LeagueID"></span>]
+                )
+            </td>
+
+            <td at-sortable at-attribute="EventName">
+                [<span title="Associate external home team"
+                       class="link"
+                       ng-click="vm.associateTeam(item.ExTeamIDHome)"
+                       ng-bind="item.ExTeamIDHome"></span>]
+                <span ng-bind="item.TeamHomeName"></span>
+                &nbsp;-&nbsp;
+                <span ng-bind="item.TeamGuestName"></span>
+                [<span title="Associate external guest team"
+                       class="link"
+                       ng-click="vm.associateTeam(item.ExTeamIDGuest)"
+                       ng-bind="item.ExTeamIDGuest"></span>]
+            </td>
+
+            <td at-sortable at-attribute="SystemTeamHomeName">
+                [<span title="System team settings"
+                       class="link"
+                       ng-click="vm.teamSettings(item.TeamIDHome)"
+                       ng-bind="item.TeamIDHome"></span>]
+                <span ng-bind="item.SystemTeamHomeName"></span>
+                &nbsp;-&nbsp;
+                <span ng-bind="item.SystemTeamGuestName"></span>
+                [<span title="System team settings"
+                       class="link"
+                       ng-click="vm.teamSettings(item.TeamIDGuest)"
+                       ng-bind="item.TeamIDGuest"></span>]
+            </td>
+
+            <td>
+                <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon__darker"
+                        ng-click="vm.import(item)"
+                        title="{{item.IsImported ? 'Event associated' : 'Associate event'}}" title-direction="left">
+                    <i class="material-icons" ng-if="item.IsImported">&#xE5CA;</i>
+                    <i class="material-icons" ng-if="!item.IsImported">&#xE884;</i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</table-extended>
+
+<div class="calendar__description">
+    <div class="block calendar-hl-0"></div>
+    <div class="calendar__description-text">- Not started</div>
+    <div class="block calendar-hl-1"></div>
+    <div class="calendar__description-text">- Finished</div>
+    <div class="block calendar-hl-2"></div>
+    <div class="calendar__description-text">- Live</div>
+    <div class="block calendar-hl-3"></div>
+    <div class="calendar__description-text">- Live without odds</div>
+    <div class="block calendar-hl-4"></div>
+    <div class="calendar__description-text">- Cannot be imported</div>
+</div>

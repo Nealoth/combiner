@@ -1,0 +1,26 @@
+<modal-wrapper>
+  <br>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" ng-model="vm.searchBySport.$">
+    <label class="mdl-textfield__label text-upper">Search in sports</label>
+  </div>
+  <br>
+  <div style="overflow-y: auto; max-height: 60vh;">
+    <table class="material__table-small full-width">
+      <thead>
+      <tr class="text-upper text-primary">
+        <th>Code</th>
+        <th>Name</th>
+        <th>Title</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-click="confirm(sport.ID)" class="hover" ng-repeat="sport in vm.sports | filter: vm.searchBySport track by $index ">
+        <td ng-bind="sport.Code"></td>
+        <td ng-bind="sport.Name"></td>
+        <td ng-bind="sport.Title"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</modal-wrapper>

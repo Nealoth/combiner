@@ -1,0 +1,19 @@
+.nav__hover {
+  -webkit-transition: background-color linear .1s;
+  -moz-transition: background-color linear .1s;
+  -ms-transition: background-color linear .1s;
+  -o-transition: background-color linear .1s;
+  transition: background-color linear .1s;
+}
+
+.nav__hover:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mdl-layout__tab {
+  transition: color linear .15s;
+}
+
+.mdl-layout__tab:hover {
+  color:white;
+}

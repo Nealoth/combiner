@@ -1,0 +1,25 @@
+<filters-wrapper refresh="vm.refresh()">
+  <h5 ng-bind="vm.betTypeName"></h5>
+</filters-wrapper>
+
+<table class="material__table-small">
+  <thead>
+    <tr>
+      <th>Ex Team ID</th>
+      <th>Team</th>
+      <th>OddFactor</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="odd in vm.table track by $index" class="hover">
+      <td ng-bind="odd.ExTeamID"></td>
+      <td>
+        [<span ng-bind="odd.TeamID"></span>]
+        <span ng-bind="odd.TeamName"></span>
+      </td>
+      <td ng-bind="odd.OddFactor"></td>
+      <td ng-bind="odd.Status"></td>
+    </tr>
+  </tbody>
+</table>

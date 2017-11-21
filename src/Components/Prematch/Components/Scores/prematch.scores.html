@@ -1,0 +1,39 @@
+<filters-wrapper refresh="vm.refreshTable()">
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-sources model="vm.filters.source" live-type="live"></filter-system-sources>
+  </div>
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-sports model="vm.filters.sport" source="vm.filters.source"></filter-system-sports>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-default model="vm.filters.search" label="Search" placeholder="Search in scores table..."
+                   debounce="500"></input-default>
+  </div>
+</filters-wrapper>
+
+<table-extended list="vm.scores"
+                livesearch="vm.filters.search"
+                accessor="__table_extended_list"
+                config="__table_extended_config">
+  <table class='material__table-small' at-table at-list="__table_extended_list" at-config="__table_extended_config">
+    <thead>
+    <tr>
+      <th class="hover" at-attribute="ChangedDate">Changed</th>
+      <th class="hover" at-attribute="ID">Ex ID</th>
+      <th class="hover" at-attribute="Name">Name</th>
+      <th class="hover" at-attribute="ScoreGroupID">Sys ID</th>
+      <th class="hover" at-attribute="SystemName">System Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="hover" ng-click="vm.associate(item)">
+      <td width="150" at-implicit at-sortable at-attribute="ChangedDate" at-initial-sorting="desc"></td>
+      <td width="150" class="text-right" at-implicit at-sortable at-attribute="ID"></td>
+      <td at-implicit at-sortable at-attribute="Name"></td>
+      <td width="150" class="text-right" at-implicit at-sortable at-attribute="ScoreGroupID"></td>
+      <td at-implicit at-sortable at-attribute="SystemName"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-extended>

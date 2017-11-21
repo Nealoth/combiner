@@ -1,0 +1,27 @@
+<modal-wrapper>
+  <h5 class="text-center" ng-bind="vm.systemName"></h5>
+  <input-default label="Search" model="filter"></input-default>
+  <div class="max__height-400 overflow-auto">
+    <table class="material__table-small">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>System Translate</th>
+        <th ng-if="vm.clientRights">Client Translate</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="hover"
+          ng-repeat="translation in vm.translations | filter: filter track by $index"
+          ng-click="vm.openModal(translation)">
+        <td>
+          <span ng-bind="translation.LanguageName"></span> (<span ng-bind="translation.LanguageCode"></span>)
+        </td>
+        <td ng-bind="translation.Translate"></td>
+        <td ng-if="vm.clientRights"
+            ng-bind="translation.DistributeTemplateTranslate"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</modal-wrapper>

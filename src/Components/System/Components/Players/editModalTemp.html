@@ -1,0 +1,19 @@
+<modal-wrapper>
+  <form ng-submit="vm.submit()">
+    <input-default label="Player Name" model="vm.name" required></input-default>
+
+    <filter-system-sports model="vm.filters.sport" ng-if="!vm.isManage"></filter-system-sports>
+
+    <button-default primary type="submit">
+      <span ng-bind="::vm.buttonText"></span>
+    </button-default>
+
+    <button-default type="button"
+                    ng-click="vm.delete()"
+                    ng-if="vm.isManage"
+                    class="pull-right">
+      Delete player
+    </button-default>
+  </form>
+
+</modal-wrapper>

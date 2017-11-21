@@ -1,0 +1,161 @@
+.monitoring__odds {
+  padding-top: 30px;
+  width: 100%;
+  will-change: transform;
+  height: auto;
+}
+
+.monitoring__odds-item {
+  display: block;
+  background-color: #dddddd;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  overflow: auto;
+  border-radius: 1px;
+}
+
+.monitoring__odds-item-heading {
+  padding: 3px 6px 3px 6px;
+  display:block;
+  width: 100%;
+  min-height: 25px;
+  background-color: #607d8b;
+  box-sizing: border-box;
+  color: whitesmoke;
+}
+
+.monitoring__odds-item-content {
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 !important;
+}
+
+.monitoring__odds-item-content > table {
+  width: 100%;
+  height: 100%;
+}
+
+.monitoring__odds-item-content > table tbody tr {
+  height: auto;
+}
+.monitoring__odds-item-content > table tbody tr td {
+  height: 100%;
+}
+
+.monitoring__odds-item-content-block {
+  display: block;
+  box-sizing: border-box;
+  padding: 5px 7px 5px 7px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  font-size: 13px;
+  width: 100%;
+  background-color: whitesmoke;
+  min-height: 30px;
+  height: auto;
+  overflow: auto;
+}
+
+.monitoring__odds-item-content-block-inline {
+  display: inline-block !important;
+}
+
+.monitoring__event-title {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  width: 99%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background-color: white;
+  z-index: 100500;
+  /*margin-top: -35px;*/
+  /*top: 300px;*/
+  height: 30px;
+}
+
+.monitoring__event-title-button {
+  text-transform: uppercase;
+  width: auto;
+  padding: 6px;
+  height: 100%;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+@keyframes odd_up {
+  from {
+    background-color: rgba(139, 195, 74, 0);
+  }
+  to {
+    background-color: rgba(139, 195, 74, 0.7);
+  }
+}
+
+@-webkit-keyframes odd_up {
+  from {
+    background-color: rgba(139, 195, 74, 0);
+  }
+  to {
+    background-color: rgba(139, 195, 74, 0.7);
+  }
+}
+
+@keyframes odd_down {
+  from {
+    background-color: rgba(255, 69, 55, 0);
+  }
+  to {
+    background-color: rgba(255, 69, 55, 0.7);
+  }
+}
+
+@-webkit-keyframes odd_down {
+  from {
+    background-color: rgba(255, 69, 55, 0);
+  }
+  to {
+    background-color: rgba(255, 69, 55, 0.7);
+  }
+}
+
+@keyframes score_update {
+  from {
+    background-color: rgba(139, 195, 74, 0);
+  }
+  to {
+    background-color: rgba(96, 125, 139, 0.7);
+  }
+}
+
+@-webkit-keyframes score_update {
+  from {
+    background-color: rgba(139, 195, 74, 0);
+  }
+  to {
+    background-color: rgba(96, 125, 139, 0.7);
+  }
+}
+
+.monitoring__odd-up {
+  animation: odd_up .6s 4 alternate;
+  -webkit-animation: odd_up .6s 4 alternate;
+}
+
+.monitoring__odd-down {
+  animation: odd_down .6s 4 alternate;
+  -webkit-animation: odd_down .6s 4 alternate;
+}
+
+.monitoring__odd-lock {
+  width: 100%;
+  text-align: center;
+}
+
+.monitoring__odd-collapse {
+  display: none !important;
+}
+
+.monitoring__score-update {
+  animation: score_update .7s 4 alternate;
+  -webkit-animation: score_update .7s 4 alternate;
+}

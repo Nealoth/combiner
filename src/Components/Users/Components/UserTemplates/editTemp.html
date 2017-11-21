@@ -1,0 +1,16 @@
+<modal-wrapper>
+  <form ng-submit="vm.submit()">
+    <input-default model="vm.templateName" required></input-default>
+    <button type="button" class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" ng-click="vm.resetTree()">
+      <i class="material-icons">loop</i>
+    </button>
+    <div ivh-treeview="vm.modules"
+         ivh-treeview-label-attribute="'Name'"
+         ivh-treeview-id-attribute="'Id'"
+         ivh-treeview-on-cb-change="vm.select(ivhNode, ivhIsSelected, ivhTree)">
+    </div>
+
+    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-bind="vm.buttonText"></button>
+  </form>
+
+</modal-wrapper>

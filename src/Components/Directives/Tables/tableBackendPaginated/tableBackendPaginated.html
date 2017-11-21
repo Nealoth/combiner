@@ -1,0 +1,66 @@
+<div class="mdl-grid" ng-show="firstLoad">
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 150px; padding-top: 0;">
+        <span class="text-upper text-primary">Items per page</span>
+        <select class="mdl-textfield__input"
+                ng-options="option.value as option.name for option in itemsPerPage"
+                ng-model="perPage"></select>
+        <label class="mdl-textfield__label"></label>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+</div>
+
+<h5 ng-if="!firstLoad" class="text-center text-muted text-upper deny-select">
+    Click refresh button to load data &nbsp;
+    <button id="filters__wrapper__refresh-button"
+            type="button"
+            class="mdl-button
+                    mdl-button--fab mdl-button--mini-fab
+                    mdl-button--raised
+                    mdl-button--colored
+                    " disabled style="cursor: default !important;">
+        <i class="material-icons">refresh</i>
+    </button>
+</h5>
+
+<div ng-show="firstLoad" class="table__backend-paginated" ng-class="{'table__backend-paginated-loading': isLoading}">
+    <div class="table__backend-paginated-preloader">
+        <!--<div class="loader-wrapper">-->
+            <!--<div class="loader">Loading...</div>-->
+        <!--</div>-->
+    </div>
+    <div ng-transclude></div>
+</div>
+
+<div class="mdl-grid" ng-show="pagesCount > 1">
+    <div class="mdl-layout-spacer"></div>
+    <div>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                ng-disabled="currentPage === 1"
+                ng-click="changePage(1)">
+            <i class="material-icons">first_page</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                ng-disabled="currentPage === 1"
+                ng-click="changePage(currentPage - 1)">
+            <i class="material-icons">navigate_before</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                ng-repeat="page in pages track by $index"
+                ng-bind="page"
+                ng-class="{active: page === currentPage}"
+                ng-click="changePage(page)">
+        </button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                ng-disabled="currentPage === pagesCount"
+                ng-click="changePage(currentPage + 1)">
+            <i class="material-icons">navigate_next</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                ng-disabled="currentPage === pagesCount"
+                ng-click="changePage(pagesCount)">
+            <i class="material-icons">last_page</i>
+        </button>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+</div>

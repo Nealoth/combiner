@@ -1,0 +1,38 @@
+<div class="mdl-grid">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>
+        User rights template
+      </th>
+      <th>
+        Modules Count
+      </th>
+      <th>
+        <button ng-click="vm.refresh()"
+                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--raised mdl-button--colored"
+                style="margin-left: 15px">
+          <i class="material-icons">loop</i>
+        </button>
+        <button ng-click="vm.editTemplate(null)"
+                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--raised">
+          <i class="material-icons">add</i>
+        </button>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="hover"
+        ng-repeat="rightsTemplate in vm.userTemplatesTable track by $index"
+        ng-click="vm.editTemplate(rightsTemplate)">
+      <td ng-bind="rightsTemplate.Name"></td>
+      <td>
+        <span ng-bind="rightsTemplate.modules.length"></span>
+         of
+        <span ng-bind="vm.totalModules.length"></span>
+      </td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

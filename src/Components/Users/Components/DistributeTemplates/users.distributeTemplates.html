@@ -1,0 +1,40 @@
+<div class="mdl-grid">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Updated</th>
+      <th>Name</th>
+      <th>Odds Key</th>
+      <th>Multiplier</th>
+      <th>Minimum Offer</th>
+      <th>Maximum Cap</th>
+      <th>
+        <button ng-click="vm.refreshTable(true)"
+                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--raised mdl-button--colored"
+                style="margin-left: 15px">
+          <i class="material-icons">loop</i>
+        </button>
+
+        <button class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+                ng-click="vm.editDistTemplate()">
+          <i class="material-icons">add</i>
+        </button>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="hover"
+        ng-repeat="distTemplate in vm.distTemplates track by $index"
+        ng-click="vm.editDistTemplate(distTemplate)">
+      <td ng-bind="::distTemplate.ID"></td>
+      <td ng-bind="distTemplate.ChangedDate | date: 'dd-MM-yyyy | HH:mm'"></td>
+      <td ng-bind="::distTemplate.Name"></td>
+      <td ng-bind="::distTemplate.OddsKey"></td>
+      <td ng-bind="::distTemplate.Mult"></td>
+      <td ng-bind="::distTemplate.MinimumOffer"></td>
+      <td colspan="2" ng-bind="::distTemplate.MaximumCap"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

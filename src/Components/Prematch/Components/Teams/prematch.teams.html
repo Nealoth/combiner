@@ -1,0 +1,49 @@
+<filters-wrapper refresh="vm.refresh()">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sources model="vm.filters.source" live-type="prematch"></filter-system-sources>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sports model="vm.filters.sport" source="vm.filters.source"></filter-system-sports>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <input-default model="vm.filters.search" label="Search" debounce="500" change="vm.refresh()"></input-default>
+    </div>
+</filters-wrapper>
+
+<table-backend-paginated per-page="vm.rowCount"
+                         current-page="vm.pageNumber"
+                         total-count="vm.count"
+                         refresh-function="vm.refresh()">
+    <table class="material__table-small">
+        <thead>
+        <tr>
+            <th>Changed</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>System Name</th>
+            <th>UID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="team in vm.table track by $index"
+            ng-click="vm.edit(team)" class="hover">
+            <td width="150" ng-bind="team.ChangedDate"></td>
+            <td ng-bind="team.ID"></td>
+            <td>
+                [<span ng-bind="team.PTeamID"></span>]
+                <span ng-bind="team.Name"></span>
+            </td>
+            <td>
+                <span ng-if="team.SystemName">
+                    [ <span class="link"
+                           ng-bind="team.TeamID"
+                           ng-click="vm.openSystemSettings(team.TeamID); $event.stopPropagation();"
+                           title="System team settings"></span> ]
+                </span>
+                <span ng-bind="team.SystemName"></span>
+            </td>
+            <td ng-bind="team.UniqueID"></td>
+        </tr>
+        </tbody>
+    </table>
+</table-backend-paginated>

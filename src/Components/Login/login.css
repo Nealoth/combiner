@@ -1,0 +1,36 @@
+.unauthorized__layout {
+  align-items: center;
+  justify-content: center;
+  background-image: url("http://www.piedpiper.com/app/themes/pied-piper/dist/images/suite.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.unauthorized__layout__content {
+  padding: 24px;
+  flex: none;
+}
+
+.unauthorized__layout-incorrect-header {
+  background-color: #f44336 !important;
+}
+
+.login__login-button > i.material-icons {
+  opacity: 0;
+  transition: all ease-in-out .1s;
+  margin-left: -24px;
+}
+
+.login__login-button > .button_text {
+  opacity: 1;
+  transition: all ease-in-out .1s;
+}
+
+.login__login-button:hover > i.material-icons {
+  opacity: 1;
+  margin-left: 55px;
+}
+
+.login__login-button:hover > .button_text {
+  opacity: 0;
+}

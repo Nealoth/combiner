@@ -1,0 +1,129 @@
+<modal-wrapper>
+  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    <div class="mdl-tabs__tab-bar">
+      <a href="#users__distTemplate_general-edit" class="mdl-tabs__tab is-active">General</a>
+      <a href="#users__distTemplate_distLanguages-edit" class="mdl-tabs__tab" ng-click="vm.loadDistLanguages()"
+         ng-if="vm.distTemplate">Distributed languages</a>
+    </div>
+    <div class="mdl-tabs__panel is-active" id="users__distTemplate_general-edit">
+      <br>
+      <form ng-submit="vm.submit()">
+        <div class="mdl-grid">
+
+          <div class="mdl-cell mdl-cell--6-col">
+            <input-default label="Name" model="vm.name" required></input-default>
+
+            <div class="mdl-textfield mdl-js-textfield">
+              <strong class="text-primary text-upper">Source</strong>
+              <select class="mdl-textfield__input"
+                      ng-model="vm.service.model"
+                      ng-options="option.Name for option in vm.service.options">
+              </select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+
+            <input-default label="Odds Key" type="number" model="vm.oddsKey" required></input-default>
+            <input-default label="Multiplier" type="number" model="vm.mult" step="0.01" required></input-default>
+            <input-default label="Minimum Offer" type="number" model="vm.minimumOffer" step="0.01" required></input-default>
+            <input-default label="Maximum Cap" type="number" model="vm.maximumCap" required></input-default>
+          </div>
+
+          <div class="mdl-cell mdl-cell--6-col">
+
+            <div class="mdl-textfield mdl-js-textfield">
+              <strong class="text-primary text-upper">Client</strong>
+              <select class="mdl-textfield__input"
+                      ng-model="vm.client.model"
+                      ng-options="option.Name for option in vm.client.options">
+                <option value="">Not selected...</option>
+              </select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+              <strong class="text-primary text-upper">Copy From</strong>
+              <select class="mdl-textfield__input"
+                      ng-model="vm.copyFrom.model"
+                      ng-options="option.Name for option in vm.copyFrom.options"
+                      ng-change="vm.autoCompleteFields()">
+                <option value=""> - Do not copy -</option>
+              </select>
+              <label class="mdl-textfield__label"></label>
+            </div>
+
+            <input-default
+              label="Modify Odds Key"
+              type="number"
+              model="vm.modified.oddsKey"
+              disabled="!vm.copyFrom.model"
+              placeholder="Can be +1 or -1 e.t.c...."></input-default>
+            <input-default
+              label="Modify Multiplier"
+              type="number"
+              model="vm.modified.mult" step="0.01"
+              disabled="!vm.copyFrom.model"
+              placeholder="Can be +1 or -1 e.t.c...."></input-default>
+            <input-default
+              label="Modify Minimum Offer"
+              type="number"
+              model="vm.modified.minimumOffer" step="0.01"
+              disabled="!vm.copyFrom.model"
+              placeholder="Can be +1 or -1 e.t.c...."></input-default>
+            <input-default
+              label="Modify Maximum Cap"
+              type="number"
+              model="vm.modified.maximumCap"
+              disabled="!vm.copyFrom.model"
+              placeholder="Can be +1 or -1 e.t.c...."></input-default>
+          </div>
+        </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                ng-bind="vm.buttonText"
+                type="submit">
+        </button>
+      </form>
+    </div>
+    <div class="mdl-tabs__panel" id="users__distTemplate_distLanguages-edit">
+
+      <div class="mdl-textfield mdl-js-textfield">
+        <strong class="text-primary text-upper">System languages</strong>
+        <select class="mdl-textfield__input"
+                ng-model="vm.language.model"
+                ng-options="option.Name + ' (' + option.Code + ')' for option in vm.language.options">
+        </select>
+        <label class="mdl-textfield__label"></label>
+      </div>
+
+      <button class="mdl-button mdl-button--icon" ng-click="vm.addDistLanguage()">
+        <i class="material-icons">playlist_add</i>
+      </button>
+
+      <br>
+
+      <div class="max__height-400 overflow-auto">
+        <table class="material__table-small">
+          <thead>
+          <tr>
+            <th>Code</th>
+            <th>Language</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="language in vm.templateLanguagesTable track by $index">
+            <td ng-bind="language.LanguageCode"></td>
+            <td ng-bind="language.LanguageName"></td>
+            <td>
+              <button class="pull-right mdl-button mdl-js-button mdl-button--icon"
+                      ng-click="vm.deleteDistLanguage(language.ID)">
+                <i class="material-icons">delete</i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</modal-wrapper>

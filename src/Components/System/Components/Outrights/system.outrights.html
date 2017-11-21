@@ -1,0 +1,83 @@
+<filters-wrapper refresh="vm.refresh()">
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-sports model="vm.filters.sport"></filter-system-sports>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-categories model="vm.filters.category" with-all></filter-system-categories>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">End Date</strong>
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.endDate.date"
+             max-view="year"
+             min-view="date"
+             view="date"
+             format="dd-MM-yyyy"
+             max-date="vm.filters.dates.end.date">
+      <label class="mdl-textfield__label"></label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.endDate.time"
+             max-view="hours"
+             format="HH:mm">
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-default model="vm.filters.search" label="Search" placeholder="Livesearch..."></input-default>
+  </div>
+
+</filters-wrapper>
+
+<table-extended list="vm.table"
+                livesearch="vm.filters.search"
+                accessor="__table_extended_list"
+                config="__table_extended_config">
+  <table class='material__table-small' at-table at-paginated at-list="__table_extended_list" at-config="__table_extended_config">
+    <thead>
+    <tr>
+      <th class="hover" at-attribute="ID">ID</th>
+      <th class="hover" at-attribute="EventDate">EventDate</th>
+      <th class="hover" at-attribute="EventStartDate">EventStartDate</th>
+      <th class="hover" at-attribute="EventEndDate">EventEndDate</th>
+      <th class="hover" at-attribute="SportName">SportName</th>
+      <th class="hover" at-attribute="CategoryName">CategoryName</th>
+      <th class="hover" at-attribute="LeagueName">LeagueName</th>
+      <th class="hover" at-attribute="EventName">EventName</th>
+      <th class="hover" at-attribute="IsOff">Off</th>
+      <th class="hover" at-attribute="ChangedDate">ChangedDate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="hover">
+      <td width="100" at-implicit at-sortable at-attribute="ID"></td>
+      <td at-implicit at-sortable at-attribute="EventDate"></td>
+      <td at-implicit at-sortable at-attribute="EventStartDate"></td>
+      <td at-implicit at-sortable at-attribute="EventEndDate"></td>
+      <td at-implicit at-sortable at-attribute="SportName"></td>
+      <td at-implicit at-sortable at-attribute="CategoryName"></td>
+      <td at-implicit at-sortable at-attribute="LeagueName">
+        [<span ng-bind="item.LeagueID"></span>]
+        <span ng-bind="item.LeagueName"></span>
+      </td>
+      <td at-implicit at-sortable at-attribute="EventName"></td>
+      <td at-sortable at-attribute="IsOff">
+        <span ng-if="item.IsOff">
+          <i class="material-icons">close</i>
+        </span>
+      </td>
+      <td at-implicit at-sortable at-attribute="ChangedDate"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-extended>

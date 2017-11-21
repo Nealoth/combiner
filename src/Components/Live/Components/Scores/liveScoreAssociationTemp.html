@@ -1,0 +1,29 @@
+<modal-wrapper>
+  <h5 class="text-center">
+    Associate "<span ng-bind="::vm.currentLiveScore.Name"></span>"
+  </h5>
+  <div class="max__height-400 overflow-auto">
+    <table class="material__table-small">
+      <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="hover"
+          ng-repeat="systemScore in vm.systemScoresTable track by $index"
+          ng-click="vm.associate(systemScore)">
+        <td ng-bind="::systemScore.Code"></td>
+        <td ng-bind="::systemScore.Name"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br>
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+          ng-click="vm.removeAssociation()">
+    Remove association
+  </button>
+
+</modal-wrapper>

@@ -1,0 +1,13 @@
+<modal-wrapper>
+    <form ng-submit="vm.submit()">
+        <input-default model="vm.name" label="Name" required></input-default>
+        <input-default model="vm.description" label="Description" required></input-default>
+
+        <br>
+        <button-default primary type="submit">{{vm.buttonText}}</button-default>
+        <button-default class="pull-right"
+                        type="button"
+                        ng-if="vm.isManage"
+                        ng-click="vm.deleteTeamType()">Delete team type</button-default>
+    </form>
+</modal-wrapper>

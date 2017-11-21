@@ -1,0 +1,38 @@
+<filters-wrapper refresh="vm.refresh()"></filters-wrapper>
+
+<table-backend-paginated per-page="itemsPerPage"
+                         current-page="currentPage"
+                         total-count="count"
+                         refresh-function="vm.refresh()">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Line</th>
+      <th>Number</th>
+      <th>Severity</th>
+      <th>SiteID</th>
+      <th>State</th>
+      <th>Parser</th>
+      <th>Procedure</th>
+      <th>Message</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="log in vm.table track by $index">
+      <td ng-bind="log.Id"></td>
+      <td ng-bind="log.PDate | date: 'HH:mm | dd.MM.yyyy'"></td>
+      <td ng-bind="log.Line"></td>
+      <td ng-bind="log.Number"></td>
+      <td ng-bind="log.Severity"></td>
+      <td ng-bind="log.SiteId"></td>
+      <td ng-bind="log.State"></td>
+      <td ng-bind="log.Parser"></td>
+      <td ng-bind="log.Procedure"></td>
+      <td ng-bind="log.Message"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-backend-paginated>
+

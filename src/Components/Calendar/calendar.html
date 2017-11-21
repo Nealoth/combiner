@@ -1,0 +1,142 @@
+<filters-wrapper refresh="vm.loadEventsTable()">
+  <div class="mdl-cell mdl-cell--3-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input ng-model="searchOnEventsTableHome.$" class="mdl-textfield__input" type="text" id="eventsTableSearch"
+             ng-model-options="{ debounce: 1000 }">
+      <label class="mdl-textfield__label" for="eventsTableSearch">Search on table rows</label>
+    </div>
+  </div>
+  <div class="mdl-cell mdl-cell--2-col">
+    <div>
+      <label class="mdl-radio mdl-js-radio" for="dailyViewRadio" ng-click="vm.changeToDailyView()">
+        <input type="radio" id="dailyViewRadio" class="mdl-radio__button" name="options"
+               ng-model="vm.viewType" value="daily" checked>
+        <span class="mdl-radio__label">Daily view</span>
+      </label>
+      &nbsp;
+      <label class="mdl-radio mdl-js-radio" for="weeklyViewRadio" ng-click="vm.changeToWeekView()">
+        <input type="radio" id="weeklyViewRadio" class="mdl-radio__button" name="options"
+               ng-model="vm.viewType" value="weekly">
+        <span class="mdl-radio__label">Weekly view</span>
+      </label>
+    </div>
+  </div>
+  <div class="mdl-cell mdl-cell--5-col">
+    <div ng-show="vm.viewType === 'daily'">
+      <strong>
+        Search events for:
+      </strong>
+      <button class="mdl-button mdl-js-button" ng-click="vm.dayAgo()">
+        <i class="material-icons">&#xE314;</i>
+      </button>
+      <strong ng-bind="vm.startDate | date: 'dd.MM.yyyy'"></strong>
+      <button class="mdl-button mdl-js-button" ng-click="vm.addDay()">
+        <i class="material-icons">&#xE315;</i>
+      </button>
+    </div>
+
+    <div ng-show="vm.viewType === 'weekly'">
+      <strong>
+        Search events for:
+      </strong>
+      <button class="mdl-button mdl-js-button" ng-click="vm.weekAgo()">
+        <i class="material-icons">&#xE314;</i>
+      </button>
+      <strong ng-bind="vm.startDate | date: 'dd'"></strong> -
+      <strong ng-bind="vm.endDate | date: 'dd.MM.yyyy'"></strong>
+      <button class="mdl-button mdl-js-button" ng-click="vm.addWeek()">
+        <i class="material-icons">&#xE315;</i>
+      </button>
+    </div>
+  </div>
+</filters-wrapper>
+
+<div ng-show="vm.events.length">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--3-col">
+      <label class="mdl-switch mdl-js-switch">
+        <input type="checkbox" class="mdl-switch__input" ng-model="vm.hideUnimportableEvents"
+               ng-model-options="{ debounce: 500 }" checked>
+        <span class="mdl-switch__label">Hide unimportable events</span>
+      </label>
+    </div>
+  </div>
+
+  <table class="material__table-small calendar-table" cellpadding="0" cellspacing="0">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Date</th>
+      <th ng-if="vm.isSrc">Source</th>
+      <th>Sport</th>
+      <th>Category</th>
+      <th>League</th>
+      <th>Home Team</th>
+      <th>Guest Team</th>
+      <th>Monitoring</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="event in vm.events | filter:searchOnEventsTableHome track by $index"
+        class="calendar-row calendar-hl-{{event.ColorStatus}}"
+        ng-class="{'none': event.ColorStatus === 4 && vm.hideUnimportableEvents }">
+      <td class="calendar-cell" ng-class="{'calendar-bought': event.IsBuy}">
+        <button class="mdl-button mdl-button--icon mdl-button--icon__darker" ng-click="vm.buy(event)">
+          <i class="material-icons">attach_money</i>
+        </button>
+      </td>
+      <td>
+        <span ng-bind="event.EventDateString"></span>
+      </td>
+      <td ng-if="vm.isSrc">
+        <span ng-bind="event.Source_"></span>
+      </td>
+      <td>
+        <span ng-bind="event.SportName"></span>
+      </td>
+      <td>
+        <span ng-bind="event.CategoryName"></span>
+      </td>
+      <td>
+        <span ng-bind="event.LeagueName"></span>
+      </td>
+      <td>
+        <span ng-bind="event.TeamHomeName"></span>
+        <span ng-if="vm.isSrc">
+                [<span ng-bind="event.TeamIDHome"></span>]
+            </span>
+      </td>
+      <td>
+        <span ng-bind="event.TeamGuestName"></span>
+        <span ng-if="vm.isSrc">
+                [<span ng-bind="event.TeamIDGuest"></span>]
+            </span>
+      </td>
+      <td class="text-center">
+        <button title="Prematch Monitoring" ng-click="vm.prematchMonitoring(event.ID)"
+                class="mdl-button mdl-button--icon mdl-button--icon__darker">
+          <!--<i class="material-icons">&#xE871;</i>-->
+          P
+        </button>
+        <button title="Live Monitoring" ng-click="vm.systemMonitoring(event.ID)"
+                class="mdl-button mdl-button--icon mdl-button--icon__darker">
+          <!--<i class="material-icons">&#xE871;</i>-->
+          L
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="calendar__description">
+    <div class="block calendar-hl-0"></div>
+    <div class="calendar__description-text">- Not started</div>
+    <div class="block calendar-hl-1"></div>
+    <div class="calendar__description-text">- Finished</div>
+    <div class="block calendar-hl-2"></div>
+    <div class="calendar__description-text">- Live</div>
+    <div class="block calendar-hl-3"></div>
+    <div class="calendar__description-text">- Live without odds</div>
+    <div class="block calendar-hl-4"></div>
+    <div class="calendar__description-text">- Cannot be imported</div>
+  </div>
+</div>

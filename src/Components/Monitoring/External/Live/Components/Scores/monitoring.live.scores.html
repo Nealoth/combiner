@@ -1,0 +1,18 @@
+<table class="material__table-small" style="margin-top: 15px;">
+    <thead>
+        <tr>
+            <th>Score Group</th>
+            <th>Period</th>
+            <th>Home Points</th>
+            <th>Guest Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="score in vm.scores track by $index">
+            <td monitoring-score-cell="score.LiveScoreGroupName"></td>
+            <td monitoring-score-cell="score.LiveScoreGroupPeriod"></td>
+            <td monitoring-score-cell="score.HomePoints"></td>
+            <td monitoring-score-cell="score.GuestPoints"></td>
+        </tr>
+    </tbody>
+</table>

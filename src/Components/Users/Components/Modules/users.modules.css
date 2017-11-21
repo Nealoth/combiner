@@ -1,0 +1,30 @@
+.users__modules-tree_wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.users__modules-tree {
+    width: auto;
+}
+
+.users__modules-tree li {
+    width: auto;
+    height:auto;
+    font-size: 16px;
+}
+
+.users__modules-tree span:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #607d8b;
+}
+
+.users__modules-tree ul {
+    margin-bottom: 20px;
+}
+
+.users__modules-tree li {
+    list-style: none;
+}

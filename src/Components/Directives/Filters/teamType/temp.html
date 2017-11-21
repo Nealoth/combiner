@@ -1,0 +1,9 @@
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <strong class="text-upper text-primary" ng-bind="::_label"></strong>
+    <select class="mdl-textfield__input"
+            ng-options="option.ID as option.Name + ' [' + option.Description + ']' for option in options"
+            ng-model="model">
+        <!--<option ng-if="withAll" value="" selected>{{::_nullLabel}}</option>-->
+    </select>
+    <label class="mdl-textfield__label"></label>
+</div>

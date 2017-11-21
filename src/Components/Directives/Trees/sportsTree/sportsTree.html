@@ -1,0 +1,42 @@
+<div class="material-tree__wrapper moving-element">
+    <!--<div id="tooltip__tree" class="material-tree__heading hover" ng-click="fireCallback()" ng-show="current.sport">-->
+        <!--<span ng-bind="current.sport.Name"></span>-->
+        <!--<strong class="" ng-if="current.country"> / </strong>-->
+        <!--<span ng-bind="current.country.Name"></span>-->
+        <!--<strong class="" ng-if="current.league"> / </strong>-->
+        <!--<span ng-bind="current.league.Name"></span>-->
+        <!--<strong class="" ng-if="current.event"> / </strong>-->
+        <!--<span ng-bind="current.event.EventName"></span>-->
+    <!--</div>-->
+    <ul class="material-tree">
+        <li ng-repeat="sport in tree track by $index">
+            <div ng-bind="::sport.Name"
+                 ng-class="{'material-tree-active' : sport.extend}"
+                 ng-click="getCountries(sport)">
+            </div>
+            <ul ng-show="sport.extend">
+                <li ng-repeat="country in sport.countries track by $index">
+                    <div ng-bind="::country.Name"
+                         ng-class="{'material-tree-active' : country.extend}"
+                         ng-click="getLeagues(sport, country, sport.countries)">
+                    </div>
+                    <ul ng-show="country.extend">
+                        <li ng-repeat="league in country.leagues track by $index">
+                            <div ng-bind="::league.Name"
+                                 ng-class="{'material-tree-active' : league.extend}"
+                                 ng-click="getEvents(sport, country, league, country.leagues)">
+                            </div>
+                            <ul ng-show="league.extend">
+                                <li ng-repeat="event in league.events track by $index"
+                                    ng-class="{'active': event.ID === current.event.ID}">
+                                    <div ng-bind="::event.EventName"
+                                         ng-click="select(sport, country, league, event)"></div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

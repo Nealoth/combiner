@@ -1,0 +1,106 @@
+<filters-wrapper refresh="vm.refresh()">
+    <div class="mdl-cell mdl-cell--1-col">
+        <filter-system-sources model="vm.filters.source" change="vm.loadXMLTypes()"></filter-system-sources>
+    </div>
+
+    <div class="mdl-cell mdl-cell--1-col">
+        <filter-is-live model="vm.filters.isLive" change="vm.loadXMLTypes()"></filter-is-live>
+    </div>
+
+    <div class="mdl-cell mdl-cell--1-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <strong class="text-upper text-primary">XML Type</strong>
+            <select class="mdl-textfield__input"
+                    ng-options="option.TypeName for option in vm.filters.xmlType.options"
+                    ng-model="vm.filters.xmlType.model">
+            </select>
+            <label class="mdl-textfield__label"></label>
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--1-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <strong class="text-upper text-primary">Begin Date</strong>
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.date.start"
+                   max-view="year"
+                   min-view="date"
+                   view="date"
+                   format="dd-MM-yyyy">
+            <label class="mdl-textfield__label"></label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.time.start"
+                   max-view="hours"
+                   format="HH:mm">
+            <label class="mdl-textfield__label"></label>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--1-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <strong class="text-upper text-primary">End</strong>
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.date.end"
+                   max-view="year"
+                   min-view="date"
+                   view="date"
+                   format="dd-MM-yyyy">
+            <label class="mdl-textfield__label"></label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+            <input class="mdl-textfield__input"
+                   type="text"
+                   date-time
+                   ng-model="vm.filters.time.end"
+                   max-view="hours"
+                   format="HH:mm">
+            <label class="mdl-textfield__label"></label>
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--4-col">
+        <input-dropdown label="Search event"
+                        placeholder="3 characters min..."
+                        options="vm.filters.event.options"
+                        option-template="vm.filters.event.optionTemplate"
+                        model="vm.filters.event.model"
+                        search="vm.filters.event.searchText"
+                        on-change="vm.loadEvents()"
+                        debounce="1000"
+                        disabled="vm.filters.searchBetTypes" class="input__dropdown-full-width">
+        </input-dropdown>
+    </div>
+</filters-wrapper>
+
+<table-backend-paginated per-page="vm.itemsPerPage"
+                         current-page="vm.currentPage"
+                         total-count="vm.count"
+                         refresh-function="vm.refresh()">
+    <table class="material__table-small">
+        <thead>
+        <tr>
+            <th>Changed</th>
+            <th>ID</th>
+            <th>Type</th>
+            <th>EventIDs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="log in vm.table track by $index"
+            class="hover"
+            ng-click="vm.viewLog(log)">
+            <td style="width: 200px" ng-bind="log.ChangedDate | date: 'dd.MM.yyyy | HH:mm.s.sss'"></td>
+            <td style="width: 200px" ng-bind="log.ID"></td>
+            <td ng-bind="log.TypeName"></td>
+            <td ng-bind="log.EventIDs"></td>
+        </tr>
+        </tbody>
+    </table>
+</table-backend-paginated>

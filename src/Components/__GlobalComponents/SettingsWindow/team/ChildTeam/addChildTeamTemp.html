@@ -1,0 +1,26 @@
+<modal-wrapper timeout="0">
+  <h5 class="text-primary text-center text-upper">
+    Add new child team
+  </h5>
+  <input-default label="Search" model="vm.search" change="vm.change()" debounce="1000" placeholder="3 characters min..."></input-default>
+  <div class="max__height-500 overflow-auto">
+    <table class="material__table-small">
+      <tbody>
+      <tr class="hover" ng-click="vm.addTeam(team)" ng-repeat="team in vm.table track by $index">
+        <td>
+          [<span class="link"
+                 ng-bind="team.ID"
+                 ng-click="vm.settings(team.ID); $event.stopPropagation()" title="Team settings" title-direction="left"></span>]
+          <span ng-bind="team.Name"></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="flex-x-center" ng-if="vm.table.length">
+      <button ng-click="vm.showMore()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        Show more
+      </button>
+      <br><br>
+    </div>
+  </div>
+</modal-wrapper>

@@ -1,0 +1,31 @@
+<br>
+<table class="material__table-small">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Changed</th>
+      <th>Name</th>
+      <th>
+        <button ng-click="vm.refresh()"
+                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--raised mdl-button--colored"
+                style="margin-left: 15px">
+          <i class="material-icons">loop</i>
+        </button>
+        <button ng-click="vm.editClient(null)"
+                class="pull-right mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--raised">
+          <i class="material-icons">add</i>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="hover"
+        ng-repeat="client in vm.table track by $index"
+        ng-click="vm.editClient(client)">
+      <td ng-bind="client.ID"></td>
+      <td ng-bind="client.ChangedDate | date: 'dd.MM.yyyy | HH:mm'"></td>
+      <td ng-bind="client.Name"></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

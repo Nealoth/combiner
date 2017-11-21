@@ -1,0 +1,30 @@
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col" ng-repeat="group in vm.groups track by $index">
+        <h5>&nbsp;&nbsp;<span ng-bind="group.name"></span></h5>
+        <table class="material__table-small">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>IP</th>
+                <th>Last Activity</th>
+                <th>Timeout</th>
+                <th>Inactive</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="hover" ng-repeat="app in group.apps track by $index"
+                ng-class="{'bg-danger': app.TimeWithoutActive > app.TimeOut}">
+                <td ng-bind="app.Id"></td>
+                <td ng-bind="app.Name"></td>
+                <td ng-bind="app.IP"></td>
+                <td ng-bind="app.LastTimeActivity | date: 'dd-MM-yyyy | HH:mm'"></td>
+                <td><span ng-bind="app.TimeOut"></span> sec</td>
+                <td><span ng-bind="app.TimeWithoutActive"></span> sec</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

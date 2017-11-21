@@ -1,0 +1,51 @@
+<div class="masonry">
+    <div class="item"
+         ng-repeat="parentModule in vm.parentModules"
+         ng-if="parentModule.navVisible && parentModule.moduleID != 0">
+        <div class="mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">
+                    <span ng-bind="parentModule.navName"></span>
+                </h2>
+            </div>
+            <div class="mdl-card__supporting-text" style="padding-top: 0; padding-bottom: 0;">
+
+                <ul class="mdl-list" style="margin-top: 0; margin-bottom: 0;" ng-if="!parentModule.childModules.length">
+                    <li class="mdl-list__item pointer home__list-element-hover"
+                        ng-click="vm.goToLink(parentModule.stateName)">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons">&#xE15B;</i>
+                            <span class="home__list-element-childName">
+                                Go to <span ng-bind="parentModule.name"></span>
+                            </span>
+                            <i class="material-icons home__list-element-forwardIcon">&#xE154;</i>
+                        </span>
+                    </li>
+                </ul>
+
+                <ul class="mdl-list" style="margin-top: 0; margin-bottom: 0;">
+                    <li class="mdl-list__item pointer home__list-element-hover"
+                        ng-repeat="childModule in parentModule.childModules track by $index"
+                        ng-click="vm.goToLink(childModule.stateName)"
+                        ng-if="childModule.navVisible">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons">&#xE15B;</i>
+                            <span class="home__list-element-childName" ng-bind="childModule.navName"></span>
+                            <i class="material-icons home__list-element-forwardIcon">&#xE154;</i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="mdl-card__actions mdl-card--border" ng-if="parentModule.childModules.length">
+                <button type="button"
+                        ng-click="vm.goToLink(parentModule.stateName)"
+                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Go to <span ng-bind="parentModule.name"></span>
+                </button>
+            </div>
+            <div class="mdl-card__menu">
+                <i class="material-icons" ng-bind="parentModule.navIcon"></i>
+            </div>
+        </div>
+    </div>
+</div>

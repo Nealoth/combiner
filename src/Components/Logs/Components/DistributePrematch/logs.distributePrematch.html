@@ -1,0 +1,108 @@
+<filters-wrapper refresh="vm.refresh()">
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-dist-template model="vm.filters.distTemplate"></filter-dist-template>
+  </div>
+  <div class="mdl-cell mdl-cell--1-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">Begin Date</strong>
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.date.start"
+             max-view="year"
+             min-view="date"
+             view="date"
+             format="dd-MM-yyyy">
+      <label class="mdl-textfield__label"></label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.time.start"
+             max-view="hours"
+             format="HH:mm">
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+  <div class="mdl-cell mdl-cell--1-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <strong class="text-upper text-primary">End</strong>
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.date.end"
+             max-view="year"
+             min-view="date"
+             view="date"
+             format="dd-MM-yyyy">
+      <label class="mdl-textfield__label"></label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-top: 0 !important;">
+      <input class="mdl-textfield__input"
+             type="text"
+             date-time
+             ng-model="vm.filters.time.end"
+             max-view="hours"
+             format="HH:mm">
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-dropdown label="Search event"
+                    placeholder="3 characters min..."
+                    options="vm.filters.event.options"
+                    option-template="vm.filters.event.optionTemplate"
+                    model="vm.filters.event.model"
+                    search="vm.filters.event.searchText"
+                    on-change="vm.loadEvents()"
+                    debounce="1000"
+                    disabled="vm.filters.searchBetTypes">
+    </input-dropdown>
+
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+      <input type="checkbox" class="mdl-switch__input" ng-model="vm.filters.searchBetTypes">
+      <span class="mdl-switch__label">Search bet types</span>
+    </label>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-dropdown label="Search outrights"
+                    placeholder="3 characters min..."
+                    options="vm.filters.outright.options"
+                    option-template="vm.filters.outright.optionTemplate"
+                    model="vm.filters.outright.model"
+                    search="vm.filters.outright.searchText"
+                    on-change="vm.loadOutrights()"
+                    debounce="1000"
+                    disabled="vm.filters.searchBetTypes">
+    </input-dropdown>
+  </div>
+</filters-wrapper>
+
+<table-backend-paginated per-page="vm.itemsPerPage"
+                         current-page="vm.currentPage"
+                         total-count="vm.count"
+                         refresh-function="vm.refresh()">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>Changed</th>
+      <th>EventIDs</th>
+      <th>EventOutrightIDs</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="log in vm.table track by $index"
+        class="hover"
+        ng-click="vm.viewLog(log)">
+      <td style="width: 150px" ng-bind="log.ChangedDate | date: 'dd.MM.yyyy | HH:mm'"></td>
+      <td ng-bind="log.EventIDs"></td>
+      <td ng-bind="log.EventOutrightIDs"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-backend-paginated>
+
+

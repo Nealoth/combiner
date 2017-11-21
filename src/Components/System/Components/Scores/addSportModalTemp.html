@@ -1,0 +1,22 @@
+<modal-wrapper>
+  <br>
+  <input-default model="vm.search" label="Search"></input-default>
+  <div class="max__height-300 overflow-auto">
+    <table class="material__table-small">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="hover"
+          ng-click="confirm(sport.ID)"
+          ng-repeat="sport in vm.sports | filter: vm.search track by $index">
+        <td ng-bind="sport.ID"></td>
+        <td ng-bind="sport.Name"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</modal-wrapper>

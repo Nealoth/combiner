@@ -1,0 +1,9 @@
+<modal-wrapper>
+  <form ng-submit="vm.submit()">
+    <input-default label="Name" model="vm.name" required></input-default>
+    <br>
+    <button-default text="vm.buttonText" type="submit" primary></button-default>
+    <button-default class="pull-right" text="'Remove'" type="button" ng-click="vm.delete()"></button-default>
+  </form>
+
+</modal-wrapper>

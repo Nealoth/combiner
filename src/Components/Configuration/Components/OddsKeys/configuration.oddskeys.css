@@ -1,0 +1,3 @@
+.configuration__oddsKeys__mainTable > tbody > tr > td > input:invalid {
+  border: 1px solid #f44336 !important;
+}

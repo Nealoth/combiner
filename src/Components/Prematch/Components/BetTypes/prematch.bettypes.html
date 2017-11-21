@@ -1,0 +1,48 @@
+<filters-wrapper refresh="vm.refreshTable()">
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sources model="vm.filters.source" live-type="prematch"></filter-system-sources>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <filter-system-sports model="vm.filters.sport" source="vm.filters.source"></filter-system-sports>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+        <input-default model="vm.filters.search" label="Search"
+                       placeholder="Search in bet types table..." debounce="500"></input-default>
+    </div>
+</filters-wrapper>
+
+<table-extended list="vm.betTypesTable"
+                livesearch="vm.filters.search"
+                accessor="__table_extended_list"
+                config="__table_extended_config">
+    <table class='material__table-small' at-table at-paginated
+           at-list="__table_extended_list"
+           at-config="__table_extended_config">
+        <thead>
+        <tr>
+            <th class="hover" at-attribute="ChangedDate">Changed</th>
+            <th class="hover" at-attribute="PBetTypeId">Ex ID</th>
+            <th class="hover" at-attribute="BetTypeID">Sys ID</th>
+            <th class="hover" at-attribute="Name">Name</th>
+            <th class="hover" at-attribute="SystemName">System</th>
+            <th class="hover" at-attribute="SpecialBetValue">S.BetValue</th>
+            <th class="hover" at-attribute="Description">Description</th>
+            <th>Overtime</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="hover" ng-click="vm.openModal(item)">
+            <td width="150" at-implicit at-sortable at-attribute="ChangedDate" at-initial-sorting="desc"></td>
+            <td width="100" at-implicit at-sortable at-attribute="PBetTypeId"></td>
+            <td width="100" at-implicit at-sortable at-attribute="BetTypeID"></td>
+            <td width="200" at-implicit at-sortable at-attribute="Name"></td>
+            <td width="200" at-implicit at-sortable at-attribute="SystemName"></td>
+            <td width="130" at-implicit at-sortable at-attribute="SpecialBetValue"></td>
+            <td             at-implicit at-sortable at-attribute="Description"></td>
+            <td width="50">
+                <span ng-if="item.SettledInOverTime">YES</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</table-extended>

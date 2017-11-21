@@ -1,0 +1,14 @@
+<modal-wrapper>
+    <form ng-submit="vm.submit()">
+        <input-default label="Code" model="vm.code" required></input-default>
+        <input-default label="Name" model="vm.name" required></input-default>
+        <input-default label="Ordering" type="number" model="vm.ordering" required></input-default>
+        <br><br>
+        <button-default type="submit" primary>{{vm.buttonText}}</button-default>
+        <button-default type="button"
+                        ng-if="vm.isManage"
+                        class="pull-right"
+                        accent
+                        ng-click="vm.deleteSport()">Delete Sport</button-default>
+    </form>
+</modal-wrapper>

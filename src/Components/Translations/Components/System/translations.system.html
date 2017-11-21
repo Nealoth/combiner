@@ -1,0 +1,82 @@
+<filters-wrapper refresh="vm.refresh()">
+  <div class="mdl-cell mdl-cell--2-col">
+    <div class="mdl-textfield mdl-js-textfield">
+      <strong class="text-upper text-primary">Language</strong>
+      <select class="mdl-textfield__input"
+              ng-options="option.Name + ' (' + option.Code + ')' for option in vm.filters.language.options"
+              ng-model="vm.filters.language.model">
+        <!--<option value="" selected>All languages</option>-->
+      </select>
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <filter-system-entities model="vm.filters.entity" check-rights></filter-system-entities>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col" ng-if="vm.systemRights && vm.clientRights">
+    <div class="mdl-textfield mdl-js-textfield">
+      <strong class="text-upper text-primary">Distribute Template</strong>
+      <select class="mdl-textfield__input"
+              ng-options="option.Name for option in vm.filters.distTemplates.options"
+              ng-model="vm.filters.distTemplates.model">
+      </select>
+      <label class="mdl-textfield__label"></label>
+    </div>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <input-default model="vm.filters.search"
+                   label="Search"
+                   change="vm.searchCallback()"
+                   placeholder="3 characters min..."
+                   debounce="500"></input-default>
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+    <br>
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+      <input type="checkbox" class="mdl-switch__input" ng-model="vm.filters.hasActive" ng-change="vm.refresh()">
+      <span class="mdl-switch__label">Show only those entities with active events in the coming month</span>
+    </label>
+  </div>
+</filters-wrapper>
+
+<table-backend-paginated per-page="itemsPerPage"
+                         current-page="currentPage"
+                         total-count="count"
+                         refresh-function="vm.refresh()">
+  <table class="material__table-small">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th ng-repeat="header in vm.additionalFields.headers">
+        <span>{{header}}</span>
+      </th>
+      <th>System Translate</th>
+      <th ng-if="vm.clientRights">Client Translate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-class="{hover: !vm.systemRights || !vm.clientRights}"
+        ng-repeat="translation in vm.table track by $index"
+        ng-click="vm.open(translation, null, $event)">
+      <td ng-bind="translation.RecordId"></td>
+
+      <td ng-repeat="field in vm.additionalFields.fields">
+        <span ng-bind="{{'translation.' + field}}"></span>
+      </td>
+
+      <td ng-click="vm.open(translation, 'system'); $event.stopPropagation();"
+          class="hover"
+          ng-bind="translation.Translate"></td>
+      <td ng-if="vm.clientRights"
+          ng-click="vm.open(translation, 'client'); $event.stopPropagation();"
+          class="hover"
+          ng-bind="translation.DistributeTemplateTranslate"></td>
+    </tr>
+    </tbody>
+  </table>
+</table-backend-paginated>
+

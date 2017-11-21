@@ -1,0 +1,8 @@
+.tmp/
+coverage/
+node_modules/
+bower_components/
+.idea/
+dist/DOCUMENTATION.html
+/src/Api/logs.js
+/src/Config

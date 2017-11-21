@@ -1,0 +1,15 @@
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="{'padding-top-0': !label}">
+  <strong class="text-upper" ng-if="label" ng-bind="label"
+          ng-class="{'mdl-js-textfield-label__disabled': disabled, 'text-primary': !disabled}"></strong>
+  <input ng-model="model" class="mdl-textfield__input"
+         type="{{::type}}"
+         placeholder="{{::placeholder}}"
+         ng-model-options="{ debounce: db }"
+         ng-change="changeCallback()"
+         ng-required="::required"
+         step="{{::step}}"
+         ng-disabled="disabled"
+         min="{{::min}}"
+         max="{{::max}}">
+  <label class="mdl-textfield__label"></label>
+</div>

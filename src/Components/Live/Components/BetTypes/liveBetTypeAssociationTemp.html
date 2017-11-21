@@ -1,0 +1,86 @@
+<modal-wrapper>
+  <h5 class="text-center">
+    <span ng-bind="::vm.currentSource.Name"></span> ->
+    <span ng-bind="::vm.currentSport.Name"></span> ->
+    <span ng-bind="::vm.betType.Name"></span>
+  </h5>
+  <h5 class="text-center text-primary" ng-show="::vm.betType.SystemBetTypeName">
+    Associated with: "<span ng-bind="::vm.betType.SystemBetTypeName"></span>"
+  </h5>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--7-col">
+      <strong class="text-upper text-primary">System bet types</strong>
+      <br>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" ng-model="vm.searchInSystemBetTypesTable">
+        <label class="mdl-textfield__label text-upper">Search in table</label>
+      </div>
+      <div style="max-height: 500px; overflow: auto;">
+        <table class="material__table-small">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Code</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="hover"
+              ng-repeat="betType in vm.systemBetTypes
+                               | filter: vm.searchInSystemBetTypesTable track by $index"
+              ng-class="{'active': betType.Name === vm.betType.SystemBetTypeName}"
+              ng-click="vm.loadOddTypes(betType)">
+            <td ng-bind="betType.Id"></td>
+            <td ng-bind="betType.Name"></td>
+            <td ng-bind="betType.Code"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="mdl-cell mdl-cell-5-col">
+      <p>
+        <Strong class="text-upper text-primary">Special bet value</Strong>
+      </p>
+      <select class="mdl-textfield__input"
+              ng-options="oddType for oddType in vm.specialBetValues.options"
+              ng-model="vm.specialBetValues.value">
+        <option value="" style="display: none;">System SBV: {{ vm.betType.SpecialBetValue ? vm.betType.SpecialBetValue :
+          "Not chosen" }}
+        </option>
+      </select>
+      <br>
+      <p>
+        <Strong class="text-upper text-primary">Live odds</Strong>
+      </p>
+      <div class="overflow-auto max__height-500">
+        <div ng-repeat="odd in vm.liveOdds track by $index"
+             class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <strong>
+            Live ODD: "<span ng-bind="odd.Name"></span>"
+            <i class="material-icons pull-right pointer" ng-click="vm.deleteOdd(odd.ID)">&#xE92B;</i>
+          </strong>
+          <select class="mdl-textfield__input"
+                  ng-options="oddType.Title for oddType in vm.systemOddTypes.options"
+                  ng-model="vm.systemOddTypes.value[$index]">
+            <option ng-if="odd.SystemName" style="visibility: hidden; display: none;" value="" selected>
+              System ODD: "{{ ::odd.SystemName }}"
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button"
+          class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+          ng-click="vm.saveChanges()">
+    Save changes
+  </button>
+  <button type="button"
+          class="pull-right mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+          ng-click="vm.removeAssociation()"
+          ng-if="::vm.betType.SystemBetTypeName">
+    Remove association
+  </button>
+
+</modal-wrapper>
